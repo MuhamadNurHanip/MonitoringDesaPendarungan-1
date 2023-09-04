@@ -4,7 +4,7 @@ import Image from "next/image";
 const Navbar = () => {
   return (
     <nav className="md:h-screen md:w-80 text-white bg-primary-color">
-      <div className="nav-brand fixed top-0 w-full md:static">
+      <div className="nav-brand fixed z-50 top-0 w-full md:static">
         <div className="w-11/12 md:w-full p-3 flex md:flex-col gap-3 justify-center items-center mx-auto rounded-b-xl md:rounded-none bg-primary-color">
           <Image
             className="md:w-36"
@@ -15,7 +15,7 @@ const Navbar = () => {
           <h1 className="font-bold text-xl">Desa Pendarungan</h1>
         </div>
       </div>
-      <div className="fixed bottom-0 w-full md:static">
+      <div className="fixed z-50 bottom-0 w-full md:static">
         <ul className="flex justify-between md:flex-col md:justify-start md:gap-3 w-11/12 md:w-full h-full rounded-t-xl md:rounded-none mx-auto bg-primary-color p-3">
           <li className="p-2 rounded-lg bg-second-color">
             <Link className="flex items-center gap-3" href={"/"}>
