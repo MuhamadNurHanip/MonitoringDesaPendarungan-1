@@ -1,4 +1,5 @@
 "use client";
+import { Rencana } from "@/components/Status";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -67,7 +68,7 @@ const Action = () => {
             </div>
             <div>
               <h3 className="font-bold">Status Program Kerja</h3>
-              <p className="pb-2">Kementrian Keuangan</p>
+              <Rencana />
             </div>
           </div>
           <div className="grid grid-cols-2">
