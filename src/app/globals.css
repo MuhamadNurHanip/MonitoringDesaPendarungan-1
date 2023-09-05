@@ -11,3 +11,7 @@ body {
 .title-section {
   @apply font-bold text-lg mb-3;
 }
+
+.card {
+  @apply w-full p-5 rounded-lg shadow-custom;
+}

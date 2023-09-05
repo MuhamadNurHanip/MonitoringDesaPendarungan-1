@@ -26,7 +26,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="p-2 rounded-lg ">
-            <Link className="flex items-center gap-3" href={"/"}>
+            <Link className="flex items-center gap-3" href={"/accounts"}>
               <Image src={"/personwhite-icon.svg"} width={24} height={24} />
               <h1 className="hidden font-bold md:block">Accounts</h1>
             </Link>

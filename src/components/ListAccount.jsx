@@ -1,6 +1,6 @@
 const ListAccount = () => {
   return (
-    <section className="w-full md:order-last p-5 rounded-lg shadow-custom space-y-3">
+    <section className="card md:order-last space-y-3">
       <h1 className="title-section">Accounts</h1>
       <div className="flex gap-3 items-center">
         <div className="avatar online">

@@ -1,6 +1,6 @@
 const Statistik = () => {
   return (
-    <section className="w-full p-5 rounded-lg shadow-custom my-3">
+    <section className="card my-3">
       <h1 className="title-section">Statistik Desa</h1>
       <div>
         <p>Program Kerja</p>

@@ -6,8 +6,8 @@ import Statistik from "@/components/Statistik";
 
 const Home = () => {
   return (
-    <div>
-      <Header />
+    <main>
+      <Header page={"Dashboard"} />
       <div className="flex flex-col md:flex-row gap-3 justify-between">
         <Money />
         <Statistik />
@@ -16,7 +16,7 @@ const Home = () => {
         <ListAccount />
         <Gallery />
       </div>
-    </div>
+    </main>
   );
 };
 
