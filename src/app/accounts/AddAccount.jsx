@@ -17,6 +17,9 @@ const AddAccount = () => {
         <LabelForm name={"Role User"} type={"text"}>
           Pilih role user anda ...
         </LabelForm>
+        <button className="button w-full font-semibold" type="submit">
+          Tambahkan Akun
+        </button>
       </form>
     </section>
   );

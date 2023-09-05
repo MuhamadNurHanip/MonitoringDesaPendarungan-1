@@ -10,6 +10,8 @@ module.exports = {
       colors: {
         "primary-color": "#161616",
         "second-color": "#fff",
+        "process-primary": "#FFD644",
+        "process-second": "#FFF1CC",
       },
       boxShadow: {
         custom: "0 0 35px rgba(0,0,0,0.1)",

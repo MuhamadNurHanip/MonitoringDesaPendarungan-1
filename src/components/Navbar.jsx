@@ -32,31 +32,31 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="p-2 rounded-lg ">
-            <Link className="flex items-center gap-3" href={"/"}>
+            <Link className="flex items-center gap-3" href={"/task"}>
               <Image src={"/taskwhite-icon.svg"} width={24} height={24} />
               <h1 className="hidden font-bold md:block">Program Kerja</h1>
             </Link>
           </li>
           <li className="p-2 rounded-lg ">
-            <Link className="flex items-center gap-3" href={"/"}>
+            <Link className="flex items-center gap-3" href={"/progress"}>
               <Image src={"/chartwhite-icon.svg"} width={24} height={24} />
               <h1 className="hidden font-bold md:block">Progress</h1>
             </Link>
           </li>
           <li className="p-2 rounded-lg ">
-            <Link className="flex items-center gap-3" href={"/"}>
+            <Link className="flex items-center gap-3" href={"/report"}>
               <Image src={"/bookwhite-icon.svg"} width={24} height={24} />
               <h1 className="hidden font-bold md:block">Laporan</h1>
             </Link>
           </li>
           <li className="p-2 rounded-lg ">
-            <Link className="flex items-center gap-3" href={"/"}>
+            <Link className="flex items-center gap-3" href={"/money"}>
               <Image src={"/moneywhite-icon.svg"} width={24} height={24} />
               <h1 className="hidden font-bold md:block">Pendanaan</h1>
             </Link>
           </li>
           <li className="p-2 rounded-lg ">
-            <Link className="flex items-center gap-3" href={"/"}>
+            <Link className="flex items-center gap-3" href={"/logout"}>
               <Image src={"/logoutwhite-icon.svg"} width={24} height={24} />
               <h1 className="hidden font-bold md:block">Logout</h1>
             </Link>
