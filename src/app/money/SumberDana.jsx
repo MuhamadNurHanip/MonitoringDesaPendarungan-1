@@ -13,7 +13,7 @@ const SumberDana = () => {
               <p>Kementrian Keuangan</p>
               <div className="flex gap-3">
                 <button
-                  className="cursor-pointer"
+                  className="cursor-pointer outline-none"
                   onClick={() => window.modal.showModal()}
                 >
                   <Image
