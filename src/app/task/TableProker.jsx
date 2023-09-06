@@ -6,7 +6,7 @@ const TableProker = () => {
   return (
     <section className="card space-y-2">
       <div className="flex justify-between">
-        <Link className="button w-max" href={"/"}>
+        <Link className="button w-max" href={"/task/add"}>
           <p>Tambah Program Kerja</p>
         </Link>
         <button className="button w-max" type="button">
