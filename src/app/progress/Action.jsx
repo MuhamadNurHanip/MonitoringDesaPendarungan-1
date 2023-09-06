@@ -7,6 +7,15 @@ const Action = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-2 items-center">
+        <Link href={"/progress/add"}>
+          <Image
+            className="cursor-pointer"
+            width={22}
+            height={22}
+            alt="add-icon"
+            src={"/plus.svg"}
+          />
+        </Link>
         <button
           className="outline-none"
           onClick={() => window.modal.showModal()}
@@ -19,22 +28,6 @@ const Action = () => {
             src={"/view.svg"}
           />
         </button>
-        <Link href={"/task/edit"}>
-          <Image
-            className="cursor-pointer"
-            width={22}
-            height={22}
-            alt="edit-icon"
-            src={"/edit.svg"}
-          />
-        </Link>
-        <Image
-          className="cursor-pointer"
-          width={18}
-          height={18}
-          alt="trash-icon"
-          src={"/trash.svg"}
-        />
       </div>
       <dialog id="modal" className="modal overflow-y-scroll">
         <div className="modal-box max-w-2xl mx-3 w-11/12 no-scrollbar bg-white">

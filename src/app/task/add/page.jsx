@@ -6,7 +6,7 @@ const AddTask = () => {
     <main>
       <Header page={"Tambah Program Kerja"} />
       <div className="card">
-        <form className="space-y-2 md:grid gap-3 md:grid-cols-2" action="">
+        <form className="space-y-2 card md:grid gap-3 md:grid-cols-2" action="">
           <div>
             <LabelForm name={"Nama Program Kerja"} type={"text"}>
               Nama program kerja anda...
@@ -38,8 +38,11 @@ const AddTask = () => {
               Tahun anggaran program kerja anda...
             </LabelForm>
           </div>
-          <button className="button w-full col-span-2" type="submit">
-            Tambahkan Program Kerja
+          <button
+            className="button w-full font-semibold col-span-2"
+            type="submit"
+          >
+            Edit Program Kerja
           </button>
         </form>
       </div>
