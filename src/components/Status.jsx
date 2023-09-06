@@ -18,8 +18,8 @@ export const Process = () => {
 
 export const Finish = () => {
   return (
-    <div className="flex items-center gap-2 text-xs bg-finish-primary-second text-finish-primary w-max px-2 py-1 rounded-full font-medium">
-      <span className="inline-block w-3 h-3 rounded-full bg-finish-primary-primary"></span>
+    <div className="flex items-center gap-2 text-xs bg-finish-second text-finish-primary w-max px-2 py-1 rounded-full font-medium">
+      <span className="inline-block w-3 h-3 rounded-full bg-finish-primary"></span>
       <p>Finish</p>
     </div>
   );
