@@ -37,7 +37,7 @@ const TableReport = () => {
         </button>
       </div>
       <div className="overflow-x-auto rounded-t-md">
-        <table className="table">
+        <table className="table table-auto w-max">
           <thead>
             <tr className="bg-primary-color/20 text-primary-color">
               <th>No</th>
@@ -65,7 +65,7 @@ const TableReport = () => {
               <td>
                 <Finish />
               </td>
-              <td className="max-w-[180px]">
+              <td className="max-w-[430px]">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
                 corrupti deserunt dolorum placeat officiis eaque, magnam sit
                 nobis aut id excepturi veniam accusantium. Fugiat dolores error
@@ -73,7 +73,7 @@ const TableReport = () => {
                 magni laboriosam quae, ipsum consequatur numquam sequi quia
                 atque ratione maiores, labore animi nihil magnam corrupti enim.
               </td>
-              <td className="max-w-[180px]">
+              <td className="max-w-[430px]">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
                 corrupti deserunt dolorum placeat officiis eaque, magnam sit
                 nobis aut id excepturi veniam accusantium. Fugiat dolores error
@@ -81,7 +81,7 @@ const TableReport = () => {
                 magni laboriosam quae, ipsum consequatur numquam sequi quia
                 atque ratione maiores, labore animi nihil magnam corrupti enim.
               </td>
-              <td className="max-w-[180px]">
+              <td className="max-w-[430px]">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
                 corrupti deserunt dolorum placeat officiis eaque, magnam sit
                 nobis aut id excepturi veniam accusantium. Fugiat dolores error
