@@ -5,7 +5,11 @@ const AddProgress = () => {
   return (
     <main>
       <Header page={"Tambah Progress Kerja"} />
-      <form className="card md:grid grid-cols-2 gap-3" action="">
+      <form
+        data-aos="fade-down-right"
+        className="card md:grid grid-cols-2 gap-3"
+        action=""
+      >
         <div className="space-y-2">
           <LabelForm longText={true} name={"Evaluasi"}>
             Evaluasi program kerja

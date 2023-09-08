@@ -5,7 +5,11 @@ import { Process } from "@/components/Status";
 
 const TableProgress = () => {
   return (
-    <section className="card space-y-2">
+    <section
+      data-aos="fade-up"
+      data-aos-anchor-placement="top-bottom"
+      className="card space-y-2"
+    >
       <div className="flex md:justify-end">
         <button className="button w-max" type="button">
           Export Data

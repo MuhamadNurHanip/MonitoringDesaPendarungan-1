@@ -4,7 +4,11 @@ import Action from "./Action";
 
 const TableProker = () => {
   return (
-    <section className="card space-y-2">
+    <section
+      data-aos="fade-up"
+      data-aos-anchor-placement="top-bottom"
+      className="card space-y-2"
+    >
       <div className="flex justify-between">
         <Link className="button w-max" href={"/task/add"}>
           <p>Tambah Program Kerja</p>

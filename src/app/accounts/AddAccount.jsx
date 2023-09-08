@@ -2,7 +2,7 @@ import LabelForm from "@/components/LabelForm";
 
 const AddAccount = () => {
   return (
-    <section className="card">
+    <section data-aos="fade-down-right" className="card">
       <h1 className="title-section">Tambah Akun Baru</h1>
       <form className="space-y-2" action="">
         <LabelForm name={"Nama Lengkap"} type={"text"}>

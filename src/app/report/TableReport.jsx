@@ -4,7 +4,11 @@ import { Finish } from "@/components/Status";
 
 const TableReport = () => {
   return (
-    <section className="card space-y-2">
+    <section
+      data-aos="fade-up"
+      data-aos-anchor-placement="top-bottom"
+      className="card space-y-2"
+    >
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-2 md:flex-row md:items-center">
           <label className="flex items-center gap-2" htmlFor="time">

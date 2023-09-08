@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Money = () => {
   return (
-    <section className="w-full">
+    <section data-aos="fade-down-right" className="w-full">
       <h1 className="font-extrabold text-xl mb-3">Dana Desa Pendarungan</h1>
       <div className="space-y-2">
         <div className="flex items-center gap-3 shadow-custom p-2 rounded-md">

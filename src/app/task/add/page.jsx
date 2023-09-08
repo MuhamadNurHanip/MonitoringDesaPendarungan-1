@@ -5,7 +5,11 @@ const AddTask = () => {
   return (
     <main>
       <Header page={"Tambah Program Kerja"} />
-      <form className="card md:grid gap-3 md:grid-cols-2" action="">
+      <form
+        data-aos="fade-down-right"
+        className="card md:grid gap-3 md:grid-cols-2"
+        action=""
+      >
         <div className="space-y-2">
           <LabelForm name={"Nama Program Kerja"} type={"text"}>
             Nama program kerja anda...

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const SumberDana = () => {
   return (
-    <section className="card">
+    <section data-aos="fade-down-left" className="card">
       <h3 className="title-section">Sumber Dana</h3>
       <div>
         <ol className="list-decimal pl-3 font-medium">

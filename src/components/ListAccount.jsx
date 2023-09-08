@@ -1,6 +1,6 @@
 const ListAccount = () => {
   return (
-    <section className="card md:order-last space-y-3">
+    <section data-aos="fade-down-left" className="card md:order-last space-y-3">
       <h1 className="title-section">Accounts</h1>
       <div className="flex gap-3 items-center">
         <div className="avatar online">

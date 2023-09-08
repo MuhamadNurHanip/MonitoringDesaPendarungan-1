@@ -1,6 +1,6 @@
 const Statistik = () => {
   return (
-    <section className="card my-3">
+    <section data-aos="fade-down-left" className="card my-3">
       <h1 className="title-section">Statistik Desa</h1>
       <div>
         <p>Program Kerja</p>
