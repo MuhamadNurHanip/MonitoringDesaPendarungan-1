@@ -3,7 +3,7 @@ import Image from "next/image";
 const Gallery = () => {
   return (
     <section
-      data-aos="fade-down"
+      data-aos="fade-down-right"
       className="w-full md:h-80 flex flex-col md:flex-row gap-3 md:gap-3 p-3 rounded-lg shadow-custom my-3"
     >
       <div className="w-full md:w-1/2 space-y-3 h-full">
