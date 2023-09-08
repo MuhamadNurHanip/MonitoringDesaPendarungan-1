@@ -10,6 +10,7 @@ const Navbar = () => {
       <div className="nav-brand fixed z-50 top-0 w-full md:static">
         <div className="w-11/12 md:w-full p-3 flex md:flex-col gap-3 justify-center items-center mx-auto rounded-b-xl md:rounded-none bg-primary-color">
           <Image
+            alt="icon-navbar"
             className="md:w-36"
             width={30}
             height={30}
@@ -27,9 +28,19 @@ const Navbar = () => {
           >
             <Link className="flex items-center gap-3" href={"/"}>
               {!path ? (
-                <Image src={"/homeblack-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/homeblack-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               ) : (
-                <Image src={"/homewhite-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/homewhite-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               )}
               <h1 className="hidden font-bold md:block">Dashboard</h1>
             </Link>
@@ -41,9 +52,19 @@ const Navbar = () => {
           >
             <Link className="flex items-center gap-3" href={"/accounts"}>
               {path == "accounts" ? (
-                <Image src={"/personblack-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/personblack-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               ) : (
-                <Image src={"/personwhite-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/personwhite-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               )}
               <h1 className="hidden font-bold md:block">Accounts</h1>
             </Link>
@@ -55,9 +76,19 @@ const Navbar = () => {
           >
             <Link className="flex items-center gap-3" href={"/task"}>
               {path == "task" ? (
-                <Image src={"/taskblack-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/taskblack-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               ) : (
-                <Image src={"/taskwhite-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/taskwhite-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               )}
               <h1 className="hidden font-bold md:block">Program Kerja</h1>
             </Link>
@@ -69,9 +100,19 @@ const Navbar = () => {
           >
             <Link className="flex items-center gap-3" href={"/progress"}>
               {path == "progress" ? (
-                <Image src={"/chartblack-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/chartblack-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               ) : (
-                <Image src={"/chartwhite-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/chartwhite-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               )}
               <h1 className="hidden font-bold md:block">Progress</h1>
             </Link>
@@ -83,9 +124,19 @@ const Navbar = () => {
           >
             <Link className="flex items-center gap-3" href={"/report"}>
               {path == "report" ? (
-                <Image src={"/bookblack-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/bookblack-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               ) : (
-                <Image src={"/bookwhite-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/bookwhite-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               )}
               <h1 className="hidden font-bold md:block">Laporan</h1>
             </Link>
@@ -97,9 +148,19 @@ const Navbar = () => {
           >
             <Link className="flex items-center gap-3" href={"/money"}>
               {path == "money" ? (
-                <Image src={"/moneyblack-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/moneyblack-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               ) : (
-                <Image src={"/moneywhite-icon.svg"} width={24} height={24} />
+                <Image
+                  alt="icon-navbar"
+                  src={"/moneywhite-icon.svg"}
+                  width={24}
+                  height={24}
+                />
               )}
               <h1 className="hidden font-bold md:block">Pendanaan</h1>
             </Link>
@@ -110,7 +171,12 @@ const Navbar = () => {
             }`}
           >
             <Link className="flex items-center gap-3" href={"/logout"}>
-              <Image src={"/logoutwhite-icon.svg"} width={24} height={24} />
+              <Image
+                alt="icon-navbar"
+                src={"/logoutwhite-icon.svg"}
+                width={24}
+                height={24}
+              />
               <h1 className="hidden font-bold md:block">Logout</h1>
             </Link>
           </li>

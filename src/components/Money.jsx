@@ -7,6 +7,7 @@ const Money = () => {
       <div className="space-y-2">
         <div className="flex items-center gap-3 shadow-custom p-2 rounded-md">
           <Image
+            alt="icon-money"
             className="row-span-2"
             width={35}
             height={35}
@@ -19,6 +20,7 @@ const Money = () => {
         </div>
         <div className="flex items-center gap-3 shadow-custom p-2 rounded-md">
           <Image
+            alt="icon-money"
             className="row-span-2"
             width={35}
             height={35}
@@ -31,6 +33,7 @@ const Money = () => {
         </div>
         <div className="flex items-center gap-3 shadow-custom p-2 rounded-md">
           <Image
+            alt="icon-money"
             className="row-span-2 ml-2"
             width={25}
             height={25}

@@ -84,21 +84,21 @@ const Action = () => {
           </div>
           <h3 className="font-bold">Dokumentasi Program Kerja</h3>
           <div className="flex gap-3 flex-wrap mt-2">
-            <img
+            <Image
               className="w-full md:w-48 h-24 rounded-lg object-cover"
               width={0}
               height={0}
               alt="Gallery-dokumentasi"
               src={"/gallery/gallery1.jpg"}
             />
-            <img
+            <Image
               className="w-full md:w-48 h-24 rounded-lg object-cover"
               width={0}
               height={0}
               alt="Gallery-dokumentasi"
               src={"/gallery/gallery1.jpg"}
             />
-            <img
+            <Image
               className="w-full md:w-48 h-24 rounded-lg object-cover"
               width={0}
               height={0}

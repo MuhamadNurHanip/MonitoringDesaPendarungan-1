@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const ListAccount = () => {
   return (
     <section data-aos="fade-down-left" className="card md:order-last space-y-3">
@@ -5,7 +7,12 @@ const ListAccount = () => {
       <div className="flex gap-3 items-center">
         <div className="avatar online">
           <div className="w-12 rounded-full">
-            <img src="profiles/profile1.jpg" />
+            <Image
+              width={0}
+              height={0}
+              alt="profile"
+              src="/profiles/profile1.jpg"
+            />
           </div>
         </div>
         <div>
@@ -16,7 +23,12 @@ const ListAccount = () => {
       <div className="flex gap-3 items-center">
         <div className="avatar online">
           <div className="w-12 rounded-full">
-            <img src="profiles/profile1.jpg" />
+            <Image
+              width={0}
+              height={0}
+              alt="profile"
+              src="/profiles/profile1.jpg"
+            />
           </div>
         </div>
         <div>
