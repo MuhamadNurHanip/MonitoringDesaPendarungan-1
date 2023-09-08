@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <div className="w-full overflow-x-hidden md:h-screen py-20 md:py-3 bg-white text-black  md:overflow-y-scroll p-5">
           {children}
         </div>
-        {/* <Analytics /> */}
+        <Analytics />
       </body>
     </html>
   );
