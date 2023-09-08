@@ -10,6 +10,9 @@ const AddProgress = () => {
           <LabelForm longText={true} name={"Evaluasi"}>
             Evaluasi program kerja
           </LabelForm>
+          <LabelForm longText={true} name={"Hambatan"}>
+            Hambatan program kerja
+          </LabelForm>
           <LabelForm name={"Tanggal Realisasi Pelaksanaan"} type={"date"}>
             00/00/0000
           </LabelForm>
