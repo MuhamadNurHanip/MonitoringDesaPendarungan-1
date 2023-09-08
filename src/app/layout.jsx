@@ -2,6 +2,7 @@ import AOSInit from "@/lib/aos";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
+import Title from "@/components/Title";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AOSInit />
+      <Title />
       <body className="md:flex">
         <Navbar />
         <div className="w-full overflow-x-hidden md:h-screen py-20 md:py-3 bg-white text-black  md:overflow-y-scroll p-5">
