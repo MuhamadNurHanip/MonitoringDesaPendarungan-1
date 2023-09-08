@@ -20,21 +20,23 @@ const Navbar = () => {
       </div>
       <div className="fixed z-50 bottom-0 w-full md:static">
         <ul className="flex justify-between md:flex-col md:justify-start md:gap-3 w-11/12 md:w-full h-full rounded-t-xl md:rounded-none mx-auto bg-primary-color p-3">
-          <li className={`p-2 rounded-lg ${!path && "bg-second-color"}`}>
+          <li
+            className={`p-2 rounded-lg ${
+              !path && "bg-second-color text-primary-color"
+            }`}
+          >
             <Link className="flex items-center gap-3" href={"/"}>
               {!path ? (
                 <Image src={"/homeblack-icon.svg"} width={24} height={24} />
               ) : (
                 <Image src={"/homewhite-icon.svg"} width={24} height={24} />
               )}
-              <h1 className="hidden font-bold md:block  text-primary-color">
-                Dashboard
-              </h1>
+              <h1 className="hidden font-bold md:block">Dashboard</h1>
             </Link>
           </li>
           <li
             className={`p-2 rounded-lg ${
-              path == "accounts" ? "bg-second-color" : null
+              path == "accounts" ? "bg-second-color text-primary-color" : null
             }`}
           >
             <Link className="flex items-center gap-3" href={"/accounts"}>
@@ -48,7 +50,7 @@ const Navbar = () => {
           </li>
           <li
             className={`p-2 rounded-lg ${
-              path == "task" ? "bg-second-color" : null
+              path == "task" ? "bg-second-color text-primary-color" : null
             }`}
           >
             <Link className="flex items-center gap-3" href={"/task"}>
@@ -62,7 +64,7 @@ const Navbar = () => {
           </li>
           <li
             className={`p-2 rounded-lg ${
-              path == "progress" ? "bg-second-color" : null
+              path == "progress" ? "bg-second-color text-primary-color" : null
             }`}
           >
             <Link className="flex items-center gap-3" href={"/progress"}>
@@ -76,7 +78,7 @@ const Navbar = () => {
           </li>
           <li
             className={`p-2 rounded-lg ${
-              path == "report" ? "bg-second-color" : null
+              path == "report" ? "bg-second-color text-primary-color" : null
             }`}
           >
             <Link className="flex items-center gap-3" href={"/report"}>
@@ -90,7 +92,7 @@ const Navbar = () => {
           </li>
           <li
             className={`p-2 rounded-lg ${
-              path == "money" ? "bg-second-color" : null
+              path == "money" ? "bg-second-color text-primary-color" : null
             }`}
           >
             <Link className="flex items-center gap-3" href={"/money"}>
@@ -104,7 +106,7 @@ const Navbar = () => {
           </li>
           <li
             className={`p-2 rounded-lg ${
-              path == "logout" ? "bg-second-color" : null
+              path == "logout" ? "bg-second-color text-primary-color" : null
             }`}
           >
             <Link className="flex items-center gap-3" href={"/logout"}>
