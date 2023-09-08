@@ -14,7 +14,7 @@ const AddAccount = () => {
         <LabelForm name={"Konfirmasi Password"} type={"password"}>
           Konfirmasi Password anda ...
         </LabelForm>
-        <LabelForm name={"Role User"} type={"text"}>
+        <LabelForm name={"Role User"} option={true}>
           Pilih role user anda ...
         </LabelForm>
         <button className="button w-full font-semibold" type="submit">
