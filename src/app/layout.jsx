@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
       <AOSInit />
       <body className="md:flex">
         <Navbar />
-        <div className="w-full max-h-screen py-20 md:py-3 bg-white text-black  overflow-y-scroll p-5">
+        <div className="w-full h-screen py-20 md:py-3 bg-white text-black  overflow-y-scroll p-5">
           {children}
         </div>
         {/* <Analytics /> */}
