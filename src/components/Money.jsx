@@ -15,7 +15,7 @@ const Money = () => {
           />
           <div>
             <p className="text-xs">Jumlah Dana</p>
-            <h4 className="font-bold">Rp. 17.000.000</h4>
+            <p className="font-bold">Rp. 17.000.000</p>
           </div>
         </div>
         <div className="flex items-center gap-3 shadow-custom p-2 rounded-md">
@@ -28,7 +28,7 @@ const Money = () => {
           />
           <div>
             <p className="text-xs">Realisasi Dana</p>
-            <h4 className="font-bold">Rp. 17.000.000</h4>
+            <p className="font-bold">Rp. 17.000.000</p>
           </div>
         </div>
         <div className="flex items-center gap-3 shadow-custom p-2 rounded-md">
@@ -41,7 +41,7 @@ const Money = () => {
           />
           <div>
             <p className="text-xs">Sumber Dana</p>
-            <h4 className="font-bold">12</h4>
+            <p className="font-bold">12</p>
           </div>
         </div>
       </div>

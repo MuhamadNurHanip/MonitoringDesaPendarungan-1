@@ -5,7 +5,7 @@ const Statistik = () => {
       <div>
         <p>Program Kerja</p>
         <div className="flex items-center gap-3 my-1">
-          <h5 className="text-lg font-bold">23</h5>
+          <p className="text-lg font-bold">23</p>
           <progress
             className="progress progress-info w-56"
             value="100"
@@ -16,7 +16,7 @@ const Statistik = () => {
       <div>
         <p>Progress Program Kerja</p>
         <div className="flex items-center gap-3 my-1">
-          <h5 className="text-lg font-bold">15</h5>
+          <p className="text-lg font-bold">15</p>
           <progress
             className="progress progress-warning w-56"
             value="60"
@@ -27,7 +27,7 @@ const Statistik = () => {
       <div>
         <p>Program Kerja Selesai</p>
         <div className="flex items-center gap-3 my-1">
-          <h5 className="text-lg font-bold">3</h5>
+          <p className="text-lg font-bold">3</p>
           <progress
             className="progress progress-success w-56"
             value="20"
