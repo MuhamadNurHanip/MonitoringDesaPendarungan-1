@@ -8,6 +8,7 @@ const AOSInit = () => {
   useEffect(() => {
     AOS.init({
       duration: 400,
+      once: false,
     });
   }, []);
   return null;
