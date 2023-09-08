@@ -171,12 +171,21 @@ const Navbar = () => {
             }`}
           >
             <Link className="flex items-center gap-3" href={"/logout"}>
-              <Image
-                alt="icon-navbar"
-                src={"/logoutwhite-icon.svg"}
-                width={24}
-                height={24}
-              />
+              {path == "logout" ? (
+                <Image
+                  alt="icon-navbar"
+                  src={"/logoutblack-icon.svg"}
+                  width={24}
+                  height={24}
+                />
+              ) : (
+                <Image
+                  alt="icon-navbar"
+                  src={"/logoutwhite-icon.svg"}
+                  width={24}
+                  height={24}
+                />
+              )}
               <h1 className="hidden font-bold md:block">Logout</h1>
             </Link>
           </li>
