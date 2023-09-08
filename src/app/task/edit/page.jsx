@@ -5,8 +5,8 @@ const EditTask = () => {
   return (
     <main>
       <Header page={"Edit Program Kerja"} />
-      <form className="space-y-2 card md:grid gap-3 md:grid-cols-2" action="">
-        <div>
+      <form className="card md:grid gap-3 md:grid-cols-2" action="">
+        <div className="space-y-2">
           <LabelForm name={"Nama Program Kerja"} type={"text"}>
             Nama program kerja anda...
           </LabelForm>
@@ -20,14 +20,14 @@ const EditTask = () => {
             Sasaran program kerja anda...
           </LabelForm>
         </div>
-        <div>
+        <div className="space-y-2">
           <LabelForm name={"Tanggal Rencana"} type={"text"}>
             Tanggal rencana program kerja anda...
           </LabelForm>
           <LabelForm name={"Penyelenggara"} type={"text"}>
             Penyelenggara program kerja anda...
           </LabelForm>
-          <LabelForm name={"Sumber Dana"} type={"text"}>
+          <LabelForm name={"Sumber Dana"} option={true}>
             Sumber dana program kerja anda...
           </LabelForm>
           <LabelForm name={"Jumlah Anggaran"} type={"text"}>
@@ -41,7 +41,7 @@ const EditTask = () => {
           className="button w-full font-semibold col-span-2"
           type="submit"
         >
-          Tambahkan Program Kerja
+          Edit Program Kerja
         </button>
       </form>
     </main>

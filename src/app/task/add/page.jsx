@@ -28,7 +28,7 @@ const AddTask = () => {
             <LabelForm name={"Penyelenggara"} type={"text"}>
               Penyelenggara program kerja anda...
             </LabelForm>
-            <LabelForm name={"Sumber Dana"} type={"text"}>
+            <LabelForm name={"Sumber Dana"} option={true}>
               Sumber dana program kerja anda...
             </LabelForm>
             <LabelForm name={"Jumlah Anggaran"} type={"text"}>

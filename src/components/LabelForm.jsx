@@ -1,4 +1,4 @@
-const LabelForm = ({ name, type, children, longText, option }) => {
+const LabelForm = ({ name, type, children, longText, dataOption, option }) => {
   if (longText)
     return (
       <label className="flex flex-col" htmlFor={name}>
@@ -24,7 +24,10 @@ const LabelForm = ({ name, type, children, longText, option }) => {
           id={name}
         >
           <option>Pilih {name}</option>
-          <option value=""></option>
+          {dataOption &&
+            dataOption?.map((item) => (
+              <option value={item.id}>{item.name}</option>
+            ))}
         </select>
       </label>
     );
