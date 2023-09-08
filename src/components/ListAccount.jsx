@@ -8,7 +8,7 @@ const ListAccount = () => {
         <div className="avatar online">
           <div className="w-12 rounded-full">
             <Image
-              width={0}
+              width={100}
               height={0}
               alt="profile"
               src="/profiles/profile1.jpg"
@@ -24,7 +24,7 @@ const ListAccount = () => {
         <div className="avatar online">
           <div className="w-12 rounded-full">
             <Image
-              width={0}
+              width={100}
               height={0}
               alt="profile"
               src="/profiles/profile1.jpg"
