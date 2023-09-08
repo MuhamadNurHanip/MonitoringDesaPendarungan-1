@@ -8,7 +8,10 @@ const Home = () => {
   return (
     <main>
       <Header page={"Dashboard"} />
-      <div className="flex flex-col md:flex-row gap-3 justify-between">
+      <div
+        data-aos="fade-down"
+        className="flex flex-col md:flex-row gap-3 justify-between"
+      >
         <Money />
         <Statistik />
       </div>

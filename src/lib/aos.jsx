@@ -9,6 +9,7 @@ const AOSInit = () => {
     AOS.init({
       duration: 400,
       once: false,
+      disable: false,
     });
   }, []);
   return null;
