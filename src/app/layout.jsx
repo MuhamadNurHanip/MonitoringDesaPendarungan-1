@@ -13,6 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AOSInit />
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <Title />
       <body className="md:flex">
         <Navbar />
