@@ -3,6 +3,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 import Title from "@/components/Title";
+import Layout from "@/components/Layout";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,11 +16,8 @@ export default function RootLayout({ children }) {
       <AOSInit />
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <Title />
-      <body className="md:flex">
-        <Navbar />
-        <div className="w-full overflow-x-hidden md:h-screen py-20 md:py-3 bg-white text-black  md:overflow-y-scroll p-5">
-          {children}
-        </div>
+      <body>
+        <Layout>{children}</Layout>
         <Analytics />
       </body>
     </html>
