@@ -8,6 +8,9 @@ const AddAccount = () => {
         <LabelForm name={"Nama Lengkap"} type={"text"}>
           Nama lengkap anda ...
         </LabelForm>
+        <LabelForm name={"Username"} type={"text"}>
+          Username anda ...
+        </LabelForm>
         <LabelForm name={"Password"} type={"password"}>
           Password anda ...
         </LabelForm>
