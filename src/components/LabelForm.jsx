@@ -23,7 +23,7 @@ const LabelForm = ({ name, type, children, longText, dataOption, option }) => {
           name={name}
           id={name}
         >
-          <option>Pilih {name}</option>
+          <option defaultChecked>Pilih {name}</option>
           <option value="admin">Admin</option>
           <option value="pejabatdesa">Pejabat Desa</option>
         </select>
