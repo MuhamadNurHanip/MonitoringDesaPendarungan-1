@@ -24,12 +24,8 @@ const LabelForm = ({ name, type, children, longText, dataOption, option }) => {
           id={name}
         >
           <option>Pilih {name}</option>
-          {dataOption &&
-            dataOption?.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
+          <option value="admin">Admin</option>
+          <option value="pejabatdesa">Pejabat Desa</option>
         </select>
       </label>
     );
