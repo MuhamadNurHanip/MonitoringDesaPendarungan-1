@@ -20,7 +20,6 @@ const ManageAccount = () => {
     const password = e.target[2].value;
     const confirmPassword = e.target[3].value;
     const roleuser = e.target[4].value;
-    console.log(roleuser);
     if (password != confirmPassword) return alert("Password tidak sama!");
 
     const addData = await axios.post("http://localhost:3000/api/v1/users", {

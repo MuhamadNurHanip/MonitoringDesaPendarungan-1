@@ -1,4 +1,13 @@
-const LabelForm = ({ name, type, children, longText, dataOption, option }) => {
+const LabelForm = ({
+  name,
+  type,
+  children,
+  longText,
+  value,
+  onChange,
+  dataOption,
+  option,
+}) => {
   if (longText)
     return (
       <label className="flex flex-col" htmlFor={name}>
@@ -7,6 +16,7 @@ const LabelForm = ({ name, type, children, longText, dataOption, option }) => {
           placeholder={children}
           className="p-2 placeholder:text-xs outline-none border border-primary-color text-primary-color bg-second-color rounded-md "
           name={name}
+          value={value}
           id={name}
           cols="30"
           rows="3"
@@ -36,7 +46,9 @@ const LabelForm = ({ name, type, children, longText, dataOption, option }) => {
         placeholder={children}
         className="p-2 placeholder:text-xs outline-none border border-primary-color text-primary-color bg-second-color rounded-md "
         type={type}
+        onChange={onChange}
         name={name}
+        value={value}
         id={name}
       />
     </label>
