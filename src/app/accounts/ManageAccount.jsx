@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 
 const ManageAccount = () => {
   const [user, setUser] = useState([]);
+  const [option, setOption] = useState([
+    { id: 1, nama: "Admin" },
+    { id: 2, nama: "Pejabat Desa" },
+  ]);
 
   const getUser = async () => {
     const data = (await axios.get("http://localhost:3000/api/v1/users")).data
@@ -19,7 +23,7 @@ const ManageAccount = () => {
     const username = e.target[1].value.toLowerCase();
     const password = e.target[2].value;
     const confirmPassword = e.target[3].value;
-    const roleuser = e.target[4].value;
+    const roleuser = e.target[4].value == "1" ? "admin" : "pejabatdesa";
     if (password != confirmPassword) return alert("Password tidak sama!");
 
     const addData = await axios.post("http://localhost:3000/api/v1/users", {
@@ -63,7 +67,7 @@ const ManageAccount = () => {
           <LabelForm name={"Konfirmasi Password"} type={"password"}>
             Konfirmasi Password anda ...
           </LabelForm>
-          <LabelForm name={"Role User"} option={true}>
+          <LabelForm name={"Role User"} option={true} dataOption={option}>
             Pilih role user anda ...
           </LabelForm>
           <button className="button w-full font-semibold" type="submit">

@@ -1,8 +1,29 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Finish } from "@/components/Status";
+"use client";
+import { Finish, Process, Rencana } from "@/components/Status";
+import { setDate } from "@/lib/setDate";
+import { setMoney } from "@/lib/setMoney";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const TableReport = () => {
+  const [proker, setProker] = useState([]);
+  const [tahun, setTahun] = useState();
+  const [status, setStatus] = useState("Rencana");
+
+  const getProker = async () => {
+    try {
+      const data = (
+        await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
+      ).data.data;
+      setProker(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getProker();
+  }, []);
   return (
     <section
       data-aos="fade-up"
@@ -26,13 +47,14 @@ const TableReport = () => {
           <label className="flex items-center gap-2" htmlFor="time">
             <span className="font-semibold">Status</span>
             <select
+              onChange={(e) => setStatus(e.target.value)}
               className="bg-primary-color text-second-color rounded-md outline-none text-xs p-2"
               name="time"
               id="time"
             >
-              <option value="2023">Rencana</option>
-              <option value="2023">Proses</option>
-              <option value="2023">Selesai</option>
+              <option value="Rencana">Rencana</option>
+              <option value="Progress">Proses</option>
+              <option value="Selesai">Selesai</option>
             </select>
           </label>
         </div>
@@ -58,42 +80,40 @@ const TableReport = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <td>Program Pemberdayaan Perempuan</td>
-              <td className="min-w-max">12 Desember 2023</td>
-              <td>APBN</td>
-              <td>Rp.12.000.000</td>
-              <td>Rp.12.000.000</td>
-              <td>Rp.12.000.000</td>
-              <td>
-                <Finish />
-              </td>
-              <td className="max-w-[430px]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-                corrupti deserunt dolorum placeat officiis eaque, magnam sit
-                nobis aut id excepturi veniam accusantium. Fugiat dolores error
-                saepe asperiores, quidem repellendus dignissimos adipisci minus
-                magni laboriosam quae, ipsum consequatur numquam sequi quia
-                atque ratione maiores, labore animi nihil magnam corrupti enim.
-              </td>
-              <td className="max-w-[430px]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-                corrupti deserunt dolorum placeat officiis eaque, magnam sit
-                nobis aut id excepturi veniam accusantium. Fugiat dolores error
-                saepe asperiores, quidem repellendus dignissimos adipisci minus
-                magni laboriosam quae, ipsum consequatur numquam sequi quia
-                atque ratione maiores, labore animi nihil magnam corrupti enim.
-              </td>
-              <td className="max-w-[430px]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-                corrupti deserunt dolorum placeat officiis eaque, magnam sit
-                nobis aut id excepturi veniam accusantium. Fugiat dolores error
-                saepe asperiores, quidem repellendus dignissimos adipisci minus
-                magni laboriosam quae, ipsum consequatur numquam sequi quia
-                atque ratione maiores, labore animi nihil magnam corrupti enim.
-              </td>
-            </tr>
+            {proker.map((item, index) => {
+              if (item.status == status)
+                return (
+                  <tr key={item.id}>
+                    <th>{index + 1}</th>
+                    <td>{item.judul}</td>
+                    <td className="min-w-max">{setDate(item.tanggal)}</td>
+                    <td>{item.fundsName}</td>
+                    <td>{setMoney(item.jumlahAnggaran)}</td>
+                    <td>
+                      {item.realisasiAnggaran
+                        ? setMoney(item.realisasiAnggaran)
+                        : "Belum ada"}
+                    </td>
+                    <td>
+                      {item.jumlahAnggaran - item.realisasiAnggaran
+                        ? setMoney(item.jumlahAnggaran - item.realisasiAnggaran)
+                        : "Belum ada"}
+                    </td>
+                    <td>
+                      {item.status == "Rencana" && <Rencana />}
+                      {item.status == "Progress" && <Process />}
+                      {item.status == "Selesai" && <Finish />}
+                    </td>
+                    <td className="max-w-[430px]">{item.deskripsi}</td>
+                    <td className="max-w-[430px]">
+                      {item.hambatan || "Belum ada"}
+                    </td>
+                    <td className="max-w-[430px]">
+                      {item.evaluasi || "Belum ada"}
+                    </td>
+                  </tr>
+                );
+            })}
           </tbody>
         </table>
       </div>

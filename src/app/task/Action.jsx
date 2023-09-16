@@ -5,7 +5,6 @@ import { setDate } from "@/lib/setDate";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 const Action = ({ item, method }) => {
   const deleteData = async () => {
@@ -73,7 +72,6 @@ const Action = ({ item, method }) => {
           <div className="grid grid-cols-2">
             <div>
               <h3 className="font-bold">Sumber Dana</h3>
-              {console.log(item.fundsName)}
               <p className="pb-2">{item.fundsName}</p>
             </div>
             <div>
