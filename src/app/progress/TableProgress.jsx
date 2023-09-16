@@ -1,9 +1,28 @@
+"use client";
 import Image from "next/image";
-import Link from "next/link";
 import Action from "./Action";
 import { Process } from "@/components/Status";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const TableProgress = () => {
+  const [proker, setProker] = useState([]);
+
+  const getProker = async () => {
+    try {
+      const data = (
+        await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
+      ).data.data;
+      setProker(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getProker();
+  }, []);
+
   return (
     <section
       data-aos="fade-up"
@@ -53,16 +72,24 @@ const TableProgress = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <td className="max-w-[180px]">Program Pemberdayaan Perempuan</td>
-              <td>
-                <Process />
-              </td>
-              <td>
-                <Action />
-              </td>
-            </tr>
+            {proker.map((item, index) => {
+              let no = 0;
+              if (item.status == "Progress") {
+                no++;
+                return (
+                  <tr key={index}>
+                    <th>{no}</th>
+                    <td className="max-w-[180px]">{item.judul}</td>
+                    <td>
+                      <Process />
+                    </td>
+                    <td>
+                      <Action item={item} key={index} />
+                    </td>
+                  </tr>
+                );
+              }
+            })}
           </tbody>
         </table>
       </div>
