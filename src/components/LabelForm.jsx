@@ -5,7 +5,8 @@ const LabelForm = ({
   longText,
   value,
   onChange,
-  dataOption,
+  dataOption = [],
+  required = false,
   option,
 }) => {
   if (longText)
@@ -14,6 +15,8 @@ const LabelForm = ({
         <span className="font-medium">{name}</span>
         <textarea
           placeholder={children}
+          required={required}
+          onChange={onChange}
           className="p-2 placeholder:text-xs outline-none border border-primary-color text-primary-color bg-second-color rounded-md "
           name={name}
           value={value}
@@ -29,13 +32,18 @@ const LabelForm = ({
       <label className="flex flex-col" htmlFor={name}>
         <span className="font-medium">{name}</span>
         <select
+          required={required}
+          onChange={onChange}
           className="p-2 placeholder:text-xs outline-none border border-primary-color text-primary-color bg-second-color rounded-md"
           name={name}
           id={name}
         >
           <option defaultChecked>Pilih {name}</option>
-          <option value="admin">Admin</option>
-          <option value="pejabatdesa">Pejabat Desa</option>
+          {dataOption.map((item) => (
+            <option key={item.id} value={item.id} selected={item.id == value}>
+              {item.nama}
+            </option>
+          ))}
         </select>
       </label>
     );
@@ -44,6 +52,7 @@ const LabelForm = ({
       <span className="font-medium">{name}</span>
       <input
         placeholder={children}
+        required={required}
         className="p-2 placeholder:text-xs outline-none border border-primary-color text-primary-color bg-second-color rounded-md "
         type={type}
         onChange={onChange}

@@ -1,8 +1,29 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import Action from "./Action";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { setDate } from "@/lib/setDate";
 
 const TableProker = () => {
+  const [proker, setProker] = useState([]);
+
+  const getProker = async () => {
+    try {
+      const data = (
+        await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
+      ).data.data;
+      setProker(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getProker();
+  }, []);
+
   return (
     <section
       data-aos="fade-up"
@@ -56,15 +77,17 @@ const TableProker = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <td className="max-w-[180px]">Program Pemberdayaan Perempuan</td>
-              <td className="max-w-[120px]">Quality Control Specialist</td>
-              <td>Blue</td>
-              <td>
-                <Action />
-              </td>
-            </tr>
+            {proker.map((item, index) => (
+              <tr key={index}>
+                <th>{index + 1}</th>
+                <td className="max-w-[180px]">{item.judul}</td>
+                <td className="max-w-[120px]">{setDate(item.tanggal)}</td>
+                <td>{item.fundsName}</td>
+                <td>
+                  <Action item={item} method={getProker} />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

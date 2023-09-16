@@ -25,6 +25,36 @@ enum RoleUser {
 }
 
 model Funds {
-  id   Int    @id @default(autoincrement())
-  nama String
+  id     Int      @id @default(autoincrement())
+  nama   String
+  Proker Proker[]
+
+  @@unique([id, nama])
+}
+
+model Proker {
+  id               Int        @id @default(autoincrement())
+  judul            String
+  deskripsi        String
+  tujuan           String
+  sasaran          String
+  penyelenggara    String
+  hambatan         String?
+  evaluasi         String?
+  fundsId          Int?
+  fundsName        String?
+  funds            Funds?     @relation(fields: [fundsId, fundsName], references: [id, nama])
+  status           RoleStatus @default(value: Rencana)
+  jumlahAnggaran   Int
+  jumlahRealisasi  Int?
+  tahunAnggaran    Int
+  tanggal          String
+  tanggalRealisasi String?
+  dokumentasi      String?
+}
+
+enum RoleStatus {
+  Rencana
+  Progress
+  Selesai
 }
