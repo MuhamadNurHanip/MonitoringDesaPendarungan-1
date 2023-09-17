@@ -46,7 +46,7 @@ model Proker {
   funds            Funds?     @relation(fields: [fundsId, fundsName], references: [id, nama])
   status           RoleStatus @default(value: Rencana)
   jumlahAnggaran   Int
-  jumlahRealisasi  Int?
+  jumlahRealisasi  Int?       @default(0)
   tahunAnggaran    Int
   tanggal          String
   tanggalRealisasi String?
