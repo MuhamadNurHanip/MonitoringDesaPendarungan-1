@@ -30,11 +30,11 @@ const Statistik = () => {
       });
       setProgressProker({
         jumlah: progress,
-        persen: hitungPercent(progress, jumlahProker.jumlah),
+        persen: hitungPercent(progress, data.length),
       });
       setFinishProker({
         jumlah: finish,
-        persen: hitungPercent(finish, jumlahProker.jumlah),
+        persen: hitungPercent(finish, data.length),
       });
       setLoading(false);
     } catch (error) {

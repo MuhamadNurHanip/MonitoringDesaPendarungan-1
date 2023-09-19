@@ -59,6 +59,21 @@ const FormEdit = ({ id }) => {
     }
   };
 
+  const status = (value) => {
+    if (value == "Rencana") {
+      console.log("Rencana");
+      return 1;
+    }
+    if (value == "Progress") {
+      console.log("Progress");
+      return 2;
+    }
+    if (value == "Selesai") {
+      console.log("Selesai");
+      return 3;
+    }
+  };
+
   useEffect(() => {
     getData();
     getFunds();
@@ -175,6 +190,30 @@ const FormEdit = ({ id }) => {
           type={"number"}
         >
           Tahun anggaran program kerja anda...
+        </LabelForm>
+        <LabelForm
+          name={"Status Program Kerja"}
+          option={true}
+          value={
+            (proker.status == "Rencana" && 1) ||
+            (proker.status == "Progress" && 2) ||
+            (proker.status == "Selesai" && 3)
+          }
+          dataOption={[
+            { id: 1, nama: "Rencana" },
+            { id: 2, nama: "Progress" },
+            { id: 3, nama: "Selesai" },
+          ]}
+          onChange={(e) => {
+            let status;
+            const value = e.target.value;
+            if (value == 1) status = "Rencana";
+            if (value == 2) status = "Progress";
+            if (value == 3) status = "Selesai";
+            setProker({ ...proker, status });
+          }}
+        >
+          Status program kerja anda...
         </LabelForm>
       </div>
       <button className="button w-full font-semibold col-span-2" type="submit">

@@ -19,7 +19,6 @@ const TableReport = () => {
         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
       ).data.data;
       setProker(data);
-      console.log(proker.length);
       setLoading(false);
     } catch (error) {
       console.log(error.message);
