@@ -5,9 +5,11 @@ import Action from "./Action";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { setDate } from "@/lib/setDate";
+import TableLoading from "@/components/TableLoading";
 
 const TableProker = () => {
   const [proker, setProker] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getProker = async () => {
     try {
@@ -15,10 +17,13 @@ const TableProker = () => {
         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
       ).data.data;
       setProker(data);
+      setLoading(false);
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  let no = 1;
 
   useEffect(() => {
     getProker();
@@ -66,30 +71,41 @@ const TableProker = () => {
         </label>
       </div>
       <div className="overflow-x-auto rounded-t-md">
-        <table className="table">
-          <thead>
-            <tr className="bg-primary-color/20 text-primary-color">
-              <th>No</th>
-              <th>Nama</th>
-              <th>Tanggal</th>
-              <th>Sumber Dana</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {proker.map((item, index) => (
-              <tr key={index}>
-                <th>{index + 1}</th>
-                <td className="max-w-[180px]">{item.judul}</td>
-                <td className="max-w-[120px]">{setDate(item.tanggal)}</td>
-                <td>{item.fundsName}</td>
-                <td>
-                  <Action item={item} method={getProker} />
-                </td>
+        {loading ? (
+          <TableLoading />
+        ) : (
+          <table className="table">
+            <thead>
+              <tr className="bg-primary-color/20 text-primary-color">
+                <th>No</th>
+                <th>Nama</th>
+                <th>Tanggal</th>
+                <th>Sumber Dana</th>
+                <th>Aksi</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {proker.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <th>{no++}</th>
+                    <td className="max-w-[180px]">{item.judul}</td>
+                    <td className="max-w-[120px]">{setDate(item.tanggal)}</td>
+                    <td>{item.fundsName}</td>
+                    <td>
+                      <Action item={item} method={getProker} />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+        {no == 1 && !loading ? (
+          <h1 className="text-center font-bold my-3">Tidak ada data!</h1>
+        ) : (
+          ""
+        )}
       </div>
     </section>
   );

@@ -10,11 +10,13 @@ const ManageAccount = () => {
     { id: 1, nama: "Admin" },
     { id: 2, nama: "Pejabat Desa" },
   ]);
+  const [loading, setLoading] = useState(true);
 
   const getUser = async () => {
     const data = (await axios.get("http://localhost:3000/api/v1/users")).data
       .data;
     setUser(data);
+    setLoading(false);
   };
 
   const addUser = async (e) => {
@@ -80,26 +82,36 @@ const ManageAccount = () => {
         className="card md:order-last space-y-3"
       >
         <h1 className="title-section">Accounts</h1>
-        {user.map((item) => (
-          <div key={item.id} className="flex gap-3 items-center">
-            <div className="avatar online">
-              <div className="w-12 rounded-full">
-                <Image
-                  width={100}
-                  height={0}
-                  alt="profile"
-                  src="/profiles/profile1.jpg"
-                />
-              </div>
-            </div>
-            <div>
-              <p className="font-semibold">{item.fullname}</p>
-              <p className="text-xs opacity-80">
-                {item.roleuser == "admin" ? "Admin" : "Pejabat Desa"}
-              </p>
+        {loading ? (
+          <div className="flex animate-pulse gap-3 items-center">
+            <div className="h-10 w-10 rounded-md bg-slate-200"></div>
+            <div className="flex flex-col gap-3">
+              <div className="h-2 w-20 rounded-md bg-slate-200"></div>
+              <div className="h-2 w-24 rounded-md bg-slate-200"></div>
             </div>
           </div>
-        ))}
+        ) : (
+          user.map((item) => (
+            <div key={item.id} className="flex gap-3 items-center">
+              <div className="avatar online">
+                <div className="w-12 rounded-full">
+                  <Image
+                    width={100}
+                    height={0}
+                    alt="profile"
+                    src="/profiles/profile1.jpg"
+                  />
+                </div>
+              </div>
+              <div>
+                <p className="font-semibold">{item.fullname}</p>
+                <p className="text-xs opacity-80">
+                  {item.roleuser == "admin" ? "Admin" : "Pejabat Desa"}
+                </p>
+              </div>
+            </div>
+          ))
+        )}
       </section>
     </>
   );

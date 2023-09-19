@@ -4,9 +4,11 @@ import Action from "./Action";
 import { Process } from "@/components/Status";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import TableLoading from "@/components/TableLoading";
 
 const TableProgress = () => {
   const [proker, setProker] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getProker = async () => {
     try {
@@ -14,10 +16,13 @@ const TableProgress = () => {
         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
       ).data.data;
       setProker(data);
+      setLoading(false);
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  let no = 1;
 
   useEffect(() => {
     getProker();
@@ -62,36 +67,43 @@ const TableProgress = () => {
         </label>
       </div>
       <div className="overflow-x-auto rounded-t-md">
-        <table className="table">
-          <thead>
-            <tr className="bg-primary-color/20 text-primary-color">
-              <th>No</th>
-              <th>Nama</th>
-              <th>Status</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {proker.map((item, index) => {
-              let no = 0;
-              if (item.status == "Progress") {
-                no++;
-                return (
-                  <tr key={index}>
-                    <th>{no}</th>
-                    <td className="max-w-[180px]">{item.judul}</td>
-                    <td>
-                      <Process />
-                    </td>
-                    <td>
-                      <Action item={item} key={index} />
-                    </td>
-                  </tr>
-                );
-              }
-            })}
-          </tbody>
-        </table>
+        {loading ? (
+          <TableLoading />
+        ) : (
+          <table className="table">
+            <thead>
+              <tr className="bg-primary-color/20 text-primary-color">
+                <th>No</th>
+                <th>Nama</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {proker.map((item, index) => {
+                if (item.status == "Progress") {
+                  return (
+                    <tr key={index}>
+                      <th>{no++}</th>
+                      <td className="max-w-[180px]">{item.judul}</td>
+                      <td>
+                        <Process />
+                      </td>
+                      <td>
+                        <Action item={item} key={index} />
+                      </td>
+                    </tr>
+                  );
+                }
+              })}
+            </tbody>
+          </table>
+        )}
+        {no == 1 && !loading ? (
+          <h1 className="text-center font-bold my-3">Tidak ada data!</h1>
+        ) : (
+          ""
+        )}
       </div>
     </section>
   );

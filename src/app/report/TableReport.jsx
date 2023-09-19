@@ -1,5 +1,6 @@
 "use client";
 import { Finish, Process, Rencana } from "@/components/Status";
+import TableLoading from "@/components/TableLoading";
 import { setDate } from "@/lib/setDate";
 import { setMoney } from "@/lib/setMoney";
 import axios from "axios";
@@ -7,8 +8,8 @@ import { useEffect, useState } from "react";
 
 const TableReport = () => {
   const [proker, setProker] = useState([]);
-  const [tahun, setTahun] = useState();
   const [status, setStatus] = useState("Rencana");
+  const [loading, setLoading] = useState(true);
 
   const getProker = async () => {
     try {
@@ -16,13 +17,18 @@ const TableReport = () => {
         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
       ).data.data;
       setProker(data);
+      console.log(proker.length);
+      setLoading(false);
     } catch (error) {
       console.log(error.message);
     }
   };
 
+  let no = 1;
+
   useEffect(() => {
     getProker();
+    console.log(proker);
   }, []);
   return (
     <section
@@ -63,59 +69,71 @@ const TableReport = () => {
         </button>
       </div>
       <div className="overflow-x-auto rounded-t-md">
-        <table className="table table-auto w-max">
-          <thead>
-            <tr className="bg-primary-color/20 text-primary-color">
-              <th>No</th>
-              <th className="min-w-max max-w-[480px]">Nama</th>
-              <th>Tanggal</th>
-              <th>Sumber Dana</th>
-              <th>Rencana Anggaran</th>
-              <th>Realisasi Anggaran</th>
-              <th>Sisa Dana</th>
-              <th>Status</th>
-              <th>Deskripsi</th>
-              <th>Hambatan</th>
-              <th>Evaluasi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {proker.map((item, index) => {
-              if (item.status == status)
-                return (
-                  <tr key={item.id}>
-                    <th>{index + 1}</th>
-                    <td>{item.judul}</td>
-                    <td className="min-w-max">{setDate(item.tanggal)}</td>
-                    <td>{item.fundsName}</td>
-                    <td>{setMoney(item.jumlahAnggaran)}</td>
-                    <td>
-                      {item.realisasiAnggaran
-                        ? setMoney(item.realisasiAnggaran)
-                        : "Belum ada"}
-                    </td>
-                    <td>
-                      {item.jumlahAnggaran - item.realisasiAnggaran
-                        ? setMoney(item.jumlahAnggaran - item.realisasiAnggaran)
-                        : "Belum ada"}
-                    </td>
-                    <td>
-                      {item.status == "Rencana" && <Rencana />}
-                      {item.status == "Progress" && <Process />}
-                      {item.status == "Selesai" && <Finish />}
-                    </td>
-                    <td className="max-w-[430px]">{item.deskripsi}</td>
-                    <td className="max-w-[430px]">
-                      {item.hambatan || "Belum ada"}
-                    </td>
-                    <td className="max-w-[430px]">
-                      {item.evaluasi || "Belum ada"}
-                    </td>
-                  </tr>
-                );
-            })}
-          </tbody>
-        </table>
+        {loading ? (
+          <TableLoading />
+        ) : (
+          <table className="table table-auto w-max">
+            <thead>
+              <tr className="bg-primary-color/20 text-primary-color">
+                <th>No</th>
+                <th className="min-w-max max-w-[480px]">Nama</th>
+                <th>Tanggal</th>
+                <th>Sumber Dana</th>
+                <th>Rencana Anggaran</th>
+                <th>Realisasi Anggaran</th>
+                <th>Sisa Dana</th>
+                <th>Status</th>
+                <th>Deskripsi</th>
+                <th>Hambatan</th>
+                <th>Evaluasi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {proker.map((item) => {
+                if (item.status == status) {
+                  return (
+                    <tr key={item.id}>
+                      <th>{no++}</th>
+                      <td>{item.judul}</td>
+                      <td className="min-w-max">{setDate(item.tanggal)}</td>
+                      <td>{item.fundsName}</td>
+                      <td>{setMoney(item.jumlahAnggaran)}</td>
+                      <td>
+                        {item.realisasiAnggaran
+                          ? setMoney(item.realisasiAnggaran)
+                          : "Belum ada"}
+                      </td>
+                      <td>
+                        {item.jumlahAnggaran - item.realisasiAnggaran
+                          ? setMoney(
+                              item.jumlahAnggaran - item.realisasiAnggaran
+                            )
+                          : "Belum ada"}
+                      </td>
+                      <td>
+                        {item.status == "Rencana" && <Rencana />}
+                        {item.status == "Progress" && <Process />}
+                        {item.status == "Selesai" && <Finish />}
+                      </td>
+                      <td className="max-w-[430px]">{item.deskripsi}</td>
+                      <td className="max-w-[430px]">
+                        {item.hambatan || "Belum ada"}
+                      </td>
+                      <td className="max-w-[430px]">
+                        {item.evaluasi || "Belum ada"}
+                      </td>
+                    </tr>
+                  );
+                }
+              })}
+            </tbody>
+          </table>
+        )}
+        {no == 1 && !loading ? (
+          <h1 className="text-center font-bold my-3">Tidak ada data!</h1>
+        ) : (
+          ""
+        )}
       </div>
     </section>
   );
