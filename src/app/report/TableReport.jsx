@@ -1,6 +1,7 @@
 "use client";
 import { Finish, Process, Rencana } from "@/components/Status";
 import TableLoading from "@/components/TableLoading";
+import { getYear } from "@/lib/getYear";
 import { setDate } from "@/lib/setDate";
 import { setMoney } from "@/lib/setMoney";
 import axios from "axios";
@@ -10,6 +11,7 @@ const TableReport = () => {
   const [proker, setProker] = useState([]);
   const [status, setStatus] = useState("Rencana");
   const [loading, setLoading] = useState(true);
+  const [year, setYear] = useState(2023);
 
   const getProker = async () => {
     try {
@@ -41,13 +43,22 @@ const TableReport = () => {
           <label className="flex items-center gap-2" htmlFor="time">
             <span className="font-semibold">Waktu</span>
             <select
+              onChange={(e) => {
+                setYear(e.target.value);
+              }}
               className="bg-primary-color text-second-color rounded-md outline-none text-xs p-2"
               name="time"
               id="time"
             >
-              <option value="2023">2023</option>
-              <option value="2023">2023</option>
-              <option value="2023">2023</option>
+              <option value="2021" selected={year == 2021}>
+                2021
+              </option>
+              <option value="2022" selected={year == 2022}>
+                2022
+              </option>
+              <option value="2023" selected={year == 2023}>
+                2023
+              </option>
             </select>
           </label>
           <label className="flex items-center gap-2" htmlFor="time">
@@ -90,7 +101,7 @@ const TableReport = () => {
             </thead>
             <tbody>
               {proker.map((item) => {
-                if (item.status == status) {
+                if (item.status == status && getYear(item.tanggal) == year) {
                   return (
                     <tr key={item.id}>
                       <th>{no++}</th>

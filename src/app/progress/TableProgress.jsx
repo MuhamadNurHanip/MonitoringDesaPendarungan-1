@@ -5,10 +5,12 @@ import { Process } from "@/components/Status";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import TableLoading from "@/components/TableLoading";
+import { getYear } from "@/lib/getYear";
 
 const TableProgress = () => {
   const [proker, setProker] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [year, setYear] = useState(2023);
 
   const getProker = async () => {
     try {
@@ -43,13 +45,22 @@ const TableProgress = () => {
         <label className="flex items-center gap-2" htmlFor="time">
           <span className="font-semibold">Waktu</span>
           <select
+            onChange={(e) => {
+              setYear(e.target.value);
+            }}
             className="bg-primary-color text-second-color rounded-md outline-none text-xs p-2"
             name="time"
             id="time"
           >
-            <option value="2023">2023</option>
-            <option value="2023">2023</option>
-            <option value="2023">2023</option>
+            <option value="2021" selected={year == 2021}>
+              2021
+            </option>
+            <option value="2022" selected={year == 2022}>
+              2022
+            </option>
+            <option value="2023" selected={year == 2023}>
+              2023
+            </option>
           </select>
         </label>
         <label
@@ -81,7 +92,10 @@ const TableProgress = () => {
             </thead>
             <tbody>
               {proker.map((item, index) => {
-                if (item.status == "Progress") {
+                if (
+                  item.status == "Progress" &&
+                  getYear(item.tanggal) == year
+                ) {
                   return (
                     <tr key={index}>
                       <th>{no++}</th>

@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { setDate } from "@/lib/setDate";
 import TableLoading from "@/components/TableLoading";
+import { getYear } from "@/lib/getYear";
 
 const TableProker = () => {
   const [proker, setProker] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [year, setYear] = useState(2023);
 
   const getProker = async () => {
     try {
@@ -47,13 +49,22 @@ const TableProker = () => {
         <label className="flex items-center gap-2" htmlFor="time">
           <span className="font-semibold">Waktu</span>
           <select
+            onChange={(e) => {
+              setYear(e.target.value);
+            }}
             className="bg-primary-color text-second-color rounded-md outline-none text-xs p-2"
             name="time"
             id="time"
           >
-            <option value="2023">2023</option>
-            <option value="2023">2023</option>
-            <option value="2023">2023</option>
+            <option value="2021" selected={year == 2021}>
+              2021
+            </option>
+            <option value="2022" selected={year == 2022}>
+              2022
+            </option>
+            <option value="2023" selected={year == 2023}>
+              2023
+            </option>
           </select>
         </label>
         <label
@@ -86,17 +97,18 @@ const TableProker = () => {
             </thead>
             <tbody>
               {proker.map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <th>{no++}</th>
-                    <td className="max-w-[180px]">{item.judul}</td>
-                    <td className="max-w-[120px]">{setDate(item.tanggal)}</td>
-                    <td>{item.fundsName}</td>
-                    <td>
-                      <Action item={item} method={getProker} />
-                    </td>
-                  </tr>
-                );
+                if (getYear(item.tanggal) == year)
+                  return (
+                    <tr key={index}>
+                      <th>{no++}</th>
+                      <td className="max-w-[180px]">{item.judul}</td>
+                      <td className="max-w-[120px]">{setDate(item.tanggal)}</td>
+                      <td>{item.fundsName}</td>
+                      <td>
+                        <Action item={item} method={getProker} />
+                      </td>
+                    </tr>
+                  );
               })}
             </tbody>
           </table>
