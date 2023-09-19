@@ -5,7 +5,7 @@ import { useState } from "react";
 import LoginPejabat from "./LoginPejabat";
 
 const TypeLogin = () => {
-  const [typeLogin, setTypeLogin] = useState(null);
+  const [typeLogin, setTypeLogin] = useState("admin");
   return (
     <div className="w-11/12">
       <h1 className="font-bold text-2xl">Selamat Datang!</h1>
