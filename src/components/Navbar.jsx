@@ -47,30 +47,6 @@ const Navbar = () => {
           </li>
           <li
             className={`p-2 rounded-lg ${
-              path == "accounts" ? "bg-second-color text-primary-color" : null
-            }`}
-          >
-            <Link className="flex items-center gap-3" href={"/accounts"}>
-              {path == "accounts" ? (
-                <Image
-                  alt="icon-navbar"
-                  src={"/personblack-icon.svg"}
-                  width={24}
-                  height={24}
-                />
-              ) : (
-                <Image
-                  alt="icon-navbar"
-                  src={"/personwhite-icon.svg"}
-                  width={24}
-                  height={24}
-                />
-              )}
-              <h1 className="hidden font-bold md:block">Accounts</h1>
-            </Link>
-          </li>
-          <li
-            className={`p-2 rounded-lg ${
               path == "task" ? "bg-second-color text-primary-color" : null
             }`}
           >
@@ -162,7 +138,31 @@ const Navbar = () => {
                   height={24}
                 />
               )}
-              <h1 className="hidden font-bold md:block">Pendanaan</h1>
+              <h1 className="hidden font-bold md:block">Master Data</h1>
+            </Link>
+          </li>
+          <li
+            className={`p-2 rounded-lg ${
+              path == "accounts" ? "bg-second-color text-primary-color" : null
+            }`}
+          >
+            <Link className="flex items-center gap-3" href={"/accounts"}>
+              {path == "accounts" ? (
+                <Image
+                  alt="icon-navbar"
+                  src={"/personblack-icon.svg"}
+                  width={24}
+                  height={24}
+                />
+              ) : (
+                <Image
+                  alt="icon-navbar"
+                  src={"/personwhite-icon.svg"}
+                  width={24}
+                  height={24}
+                />
+              )}
+              <h1 className="hidden font-bold md:block">Accounts</h1>
             </Link>
           </li>
           <li
