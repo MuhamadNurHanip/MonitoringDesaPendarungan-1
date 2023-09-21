@@ -1,6 +1,26 @@
-import LabelForm from "@/components/LabelForm";
+import axios from "axios";
+import { useState } from "react";
 
-const SetProgress = ({ option, onChange }) => {
+const SetProgress = ({ option, getProker }) => {
+  const [idItem, setIdItem] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const addProgress = async () => {
+    try {
+      setLoading(true);
+      const add = await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/proker/${idItem}`,
+        { status: "Progress" }
+      );
+      if (add) alert("Data berhasil ditambahkan ke progress!");
+      getProker();
+      setLoading(false);
+      return;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <>
       <label htmlFor="my_modal_7" className="button w-max cursor-pointer">
@@ -11,7 +31,7 @@ const SetProgress = ({ option, onChange }) => {
         <div className="modal-box  bg-second-color text-black">
           <select
             required
-            onChange={onChange}
+            onChange={(e) => setIdItem(e.target.value)}
             className="p-2 placeholder:text-xs w-full outline-none border border-primary-color text-primary-color bg-second-color rounded-md"
             name="Progress Program Kerja"
             id="Progress Program Kerja"
@@ -26,8 +46,17 @@ const SetProgress = ({ option, onChange }) => {
                 );
             })}
           </select>
-          <button className="button w-full mt-5" type="button">
-            Tambah Progress Program Kerja
+          <button
+            onClick={addProgress}
+            className={`button w-full mt-5 ${loading && "opacity-60"}`}
+            type="button"
+            disabled={loading}
+          >
+            {loading ? (
+              <span className="loading loading-dots loading-xs"></span>
+            ) : (
+              "Tambah Progress Program Kerja"
+            )}
           </button>
         </div>
         <label className="modal-backdrop" htmlFor="my_modal_7">

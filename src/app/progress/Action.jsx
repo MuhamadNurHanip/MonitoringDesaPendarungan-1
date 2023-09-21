@@ -9,15 +9,17 @@ const Action = ({ item }) => {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-2 items-center">
-        <Link href={`/progress/add/${item.id}`}>
-          <Image
-            className="cursor-pointer"
-            width={22}
-            height={22}
-            alt="add-icon"
-            src={"/plus.svg"}
-          />
-        </Link>
+        {item.status == "Progress" && (
+          <Link href={`/progress/add/${item.id}`}>
+            <Image
+              className="cursor-pointer"
+              width={22}
+              height={22}
+              alt="add-icon"
+              src={"/plus.svg"}
+            />
+          </Link>
+        )}
         <button
           className="outline-none"
           onClick={() => window.modal.showModal()}

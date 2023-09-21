@@ -53,7 +53,7 @@ const TableProgress = () => {
       data-aos-anchor-placement="top-bottom"
       className="card space-y-2"
     >
-      <SetProgress option={proker} />
+      <SetProgress getProker={getProker} option={proker} />
 
       <div className="flex flex-col gap-2 md:flex-row justify-between md:items-center">
         <label className="flex items-center gap-2" htmlFor="time">
@@ -68,12 +68,6 @@ const TableProgress = () => {
             id="time"
           >
             {items}
-            {/* <option value="2022" selected={year == 2022}>
-              2022
-            </option>
-            <option value="2023" selected={year == 2023}>
-              2023
-            </option> */}
           </select>
         </label>
         <label
