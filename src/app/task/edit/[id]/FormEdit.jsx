@@ -1,6 +1,7 @@
 "use client";
 import LabelForm from "@/components/LabelForm";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -195,6 +196,13 @@ const FormEdit = ({ id }) => {
       <button className="button w-full font-semibold col-span-2" type="submit">
         Edit Program Kerja
       </button>
+      <Link
+        href={"/task"}
+        className="p-3 bg-rose-500 text-second-color text-center rounded-md text-xs w-full font-semibold col-span-2"
+        type="submit"
+      >
+        Batalkan Edit Program Kerja
+      </Link>
     </form>
   );
 };

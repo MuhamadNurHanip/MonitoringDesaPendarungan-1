@@ -1,6 +1,7 @@
 "use client";
 import LabelForm from "@/components/LabelForm";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -82,6 +83,13 @@ const FormAdd = ({ id }) => {
       <button className="button font-semibold" type="submit">
         Tambah Progress
       </button>
+      <Link
+        href={"/progress"}
+        className="p-3 bg-rose-500 text-second-color text-center rounded-md text-xs w-full font-semibold col-span-2"
+        type="submit"
+      >
+        Batalkan Tambah Progress
+      </Link>
     </form>
   );
 };
