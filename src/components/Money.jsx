@@ -35,8 +35,8 @@ const Money = () => {
       ).data.data;
       data.map((item) => {
         if (getYear(item.tanggal) == currentThisYear()) {
-          setJumlahDana(jumlahDana + item.jumlahAnggaran);
-          setJumlahRealisasi(jumlahRealisasi + item.jumlahRealisasi);
+          setJumlahDana((prev) => prev + item.jumlahAnggaran);
+          setJumlahRealisasi((prev) => prev + item.jumlahRealisasi);
         }
       });
       setLoading(false);

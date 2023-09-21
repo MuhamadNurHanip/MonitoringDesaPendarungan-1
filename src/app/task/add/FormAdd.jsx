@@ -1,11 +1,13 @@
 "use client";
 import LabelForm from "@/components/LabelForm";
+import { formatRupiah } from "@/lib/setMoney";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const FormAdd = () => {
   const [funds, setFunds] = useState([]);
+  const [rupiah, setRupiah] = useState();
   const router = useRouter();
 
   const addTask = async (e) => {
@@ -17,7 +19,8 @@ const FormAdd = () => {
     const tanggal = e.target[4].value;
     const penyelenggara = e.target[5].value;
     const fundsId = Number(e.target[6].value);
-    const jumlahAnggaran = Number(e.target[7].value);
+    const anggaran = e.target[7].value.split(".");
+    const jumlahAnggaran = Number(anggaran.join(""));
     const tahunAnggaran = Number(e.target[8].value);
 
     const data = {
@@ -109,7 +112,13 @@ const FormAdd = () => {
         <LabelForm name={"Sumber Dana"} dataOption={funds} option={true}>
           Sumber dana program kerja anda...
         </LabelForm>
-        <LabelForm name={"Jumlah Anggaran"} required={true} type={"number"}>
+        <LabelForm
+          name={"Jumlah Anggaran"}
+          onChange={(e) => setRupiah(formatRupiah(e.target.value))}
+          value={rupiah}
+          required={true}
+          type={"text"}
+        >
           Jumlah anggaran program kerja anda...
         </LabelForm>
         <LabelForm name={"Tahun Anggaran"} required={true} type={"number"}>

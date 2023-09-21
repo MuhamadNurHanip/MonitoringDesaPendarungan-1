@@ -1,5 +1,6 @@
 "use client";
 
+import { getYear } from "@/lib/getYear";
 import { hitungPercent } from "@/lib/setPercent";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -13,19 +14,27 @@ const Statistik = () => {
   const [finishProker, setFinishProker] = useState({ jumlah: 0, persen: 0 });
   const [loading, setLoading] = useState(true);
 
+  const currentThisYear = () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    return currentYear;
+  };
+
   const getStatistik = async () => {
     try {
       const data = (
         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
       ).data.data;
-      setJumlahProker({ jumlah: data.length, persen: 100 });
       let progress = 0;
       let finish = 0;
       data.map((item) => {
-        if (item.status == "Progress") {
-          progress++;
-        } else if (item.status == "Selesai") {
-          finish++;
+        if (getYear(item.tanggal) == currentThisYear()) {
+          setJumlahProker({ jumlah: data.length, persen: 100 });
+          if (item.status == "Progress") {
+            progress++;
+          } else if (item.status == "Selesai") {
+            finish++;
+          }
         }
       });
       setProgressProker({

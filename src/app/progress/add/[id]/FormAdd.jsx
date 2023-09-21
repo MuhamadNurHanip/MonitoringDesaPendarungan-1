@@ -1,5 +1,6 @@
 "use client";
 import LabelForm from "@/components/LabelForm";
+import { formatRupiah } from "@/lib/setMoney";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -7,6 +8,7 @@ import { useState } from "react";
 
 const FormAdd = ({ id }) => {
   const router = useRouter();
+  const [rupiah, setRupiah] = useState();
   const [option, setOption] = useState([
     { id: 1, nama: "Rencana" },
     { id: 2, nama: "Progress" },
@@ -18,7 +20,8 @@ const FormAdd = ({ id }) => {
     const evaluasi = e.target[0].value;
     const hambatan = e.target[1].value;
     const tanggalRealisasi = e.target[2].value;
-    const jumlahRealisasi = Number(e.target[3].value);
+    const anggaran = e.target[3].value.split(".");
+    const jumlahRealisasi = Number(anggaran.join(""));
     const status =
       (e.target[4].value == 1 && "Rencana") ||
       (e.target[4].value == 2 && "Progress") ||
@@ -58,7 +61,12 @@ const FormAdd = ({ id }) => {
         <LabelForm name={"Tanggal Realisasi Pelaksanaan"} type={"date"}>
           00/00/0000
         </LabelForm>
-        <LabelForm name={"Realisasi Anggaran"} type={"number"}>
+        <LabelForm
+          name={"Realisasi Anggaran"}
+          onChange={(e) => setRupiah(formatRupiah(e.target.value))}
+          value={rupiah}
+          type={"text"}
+        >
           Realisasi anggaran
         </LabelForm>
         <LabelForm
@@ -85,7 +93,7 @@ const FormAdd = ({ id }) => {
       </button>
       <Link
         href={"/progress"}
-        className="p-3 bg-rose-500 text-second-color text-center rounded-md text-xs w-full font-semibold col-span-2"
+        className="p-3 bg-rose-500 text-second-color text-center rounded-md text-xs w-full md:w-1/2 font-semibold col-span-2"
         type="submit"
       >
         Batalkan Tambah Progress
