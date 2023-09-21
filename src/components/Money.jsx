@@ -1,4 +1,5 @@
 "use client";
+import { getYear } from "@/lib/getYear";
 import { setMoney } from "@/lib/setMoney";
 import axios from "axios";
 import Image from "next/image";
@@ -21,14 +22,22 @@ const Money = () => {
     }
   };
 
+  const currentThisYear = () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    return currentYear;
+  };
+
   const getJumlahDana = async () => {
     try {
       const data = (
         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
       ).data.data;
       data.map((item) => {
-        setJumlahDana(jumlahDana + item.jumlahAnggaran);
-        setJumlahRealisasi(jumlahRealisasi + item.jumlahRealisasi);
+        if (getYear(item.tanggal) == currentThisYear()) {
+          setJumlahDana(jumlahDana + item.jumlahAnggaran);
+          setJumlahRealisasi(jumlahRealisasi + item.jumlahRealisasi);
+        }
       });
       setLoading(false);
     } catch (error) {
