@@ -6,6 +6,7 @@ import { setDate } from "@/lib/setDate";
 import { setMoney } from "@/lib/setMoney";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import csvDownload from "json-to-csv-export";
 
 const TableReport = () => {
   const [proker, setProker] = useState([]);
@@ -29,6 +30,32 @@ const TableReport = () => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     return currentYear;
+  };
+
+  const dataToConvert = {
+    data: proker,
+    filename: "data_proker_pendarungan",
+    delimiter: ",",
+    headers: [
+      "idProker",
+      "Judul",
+      "Deskripsi",
+      "Tujuan",
+      "Sasaran",
+      "Penyelenggara",
+      "Hambatan",
+      "Evaluasi",
+      "idDana",
+      "Sumber Dana",
+      "Dana",
+      "Status",
+      "Jumlah Anggaran",
+      "Jumlah Realisasi Anggaran",
+      "Tahun Anggaran",
+      "Tanggal Program Kerja",
+      "Tanggal Realisasi Program Kerja",
+      "Dokumentasi",
+    ],
   };
 
   let no = 1;
@@ -82,7 +109,11 @@ const TableReport = () => {
             </select>
           </label>
         </div>
-        <button className="button w-max" type="button">
+        <button
+          onClick={() => csvDownload(dataToConvert)}
+          className="button w-max"
+          type="button"
+        >
           Export Data
         </button>
       </div>
