@@ -7,9 +7,11 @@ import axios from "axios";
 import { setDate } from "@/lib/setDate";
 import TableLoading from "@/components/TableLoading";
 import { getYear } from "@/lib/getYear";
+import Search from "@/components/Search";
 
 const TableProker = () => {
   const [proker, setProker] = useState([]);
+  const [oldProker, setOldProker] = useState([]);
   const [loading, setLoading] = useState(true);
   const [year, setYear] = useState();
 
@@ -19,6 +21,7 @@ const TableProker = () => {
         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
       ).data.data;
       setProker(data);
+      setOldProker(data);
       setLoading(false);
     } catch (error) {
       console.log(error.message);
@@ -29,6 +32,17 @@ const TableProker = () => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     return currentYear;
+  };
+
+  const searchItem = (query) => {
+    if (query.trim() === "") {
+      setProker(oldProker);
+    } else {
+      const results = proker.filter((item) =>
+        item.judul.toLowerCase().includes(query.toLowerCase())
+      );
+      setProker(results);
+    }
   };
 
   let no = 1;
@@ -72,19 +86,7 @@ const TableProker = () => {
             {items}
           </select>
         </label>
-        <label
-          className="flex gap-3 w-max text-xs rounded-md p-2 border border-primary-color"
-          htmlFor="search"
-        >
-          <Image width={24} height={24} alt="Search-icon" src={"/search.svg"} />
-          <input
-            className="bg-second-color outline-none"
-            placeholder="Cari program kerja"
-            type="text"
-            name="search"
-            id="search"
-          />
-        </label>
+        <Search search={searchItem} />
       </div>
       <div className="overflow-x-auto rounded-t-md">
         {loading ? (

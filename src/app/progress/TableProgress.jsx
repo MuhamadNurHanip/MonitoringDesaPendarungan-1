@@ -7,9 +7,11 @@ import { useEffect, useState } from "react";
 import TableLoading from "@/components/TableLoading";
 import { getYear } from "@/lib/getYear";
 import SetProgress from "./SetProgress";
+import Search from "@/components/Search";
 
 const TableProgress = () => {
   const [proker, setProker] = useState([]);
+  const [oldProker, setOldProker] = useState([]);
   const [loading, setLoading] = useState(true);
   const [year, setYear] = useState();
 
@@ -19,6 +21,7 @@ const TableProgress = () => {
         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proker`)
       ).data.data;
       setProker(data);
+      setOldProker(data);
       setLoading(false);
     } catch (error) {
       console.log(error.message);
@@ -29,6 +32,17 @@ const TableProgress = () => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     return currentYear;
+  };
+
+  const searchItem = (query) => {
+    if (query.trim() === "") {
+      setProker(oldProker);
+    } else {
+      const results = proker.filter((item) =>
+        item.judul.toLowerCase().includes(query.toLowerCase())
+      );
+      setProker(results);
+    }
   };
 
   let no = 1;
@@ -54,7 +68,6 @@ const TableProgress = () => {
       className="card space-y-2"
     >
       <SetProgress getProker={getProker} option={proker} />
-
       <div className="flex flex-col gap-2 md:flex-row justify-between md:items-center">
         <label className="flex items-center gap-2" htmlFor="time">
           <span className="font-semibold">Tahun</span>
@@ -70,19 +83,7 @@ const TableProgress = () => {
             {items}
           </select>
         </label>
-        <label
-          className="flex gap-3 w-max text-xs rounded-md p-2 border border-primary-color"
-          htmlFor="search"
-        >
-          <Image width={24} height={24} alt="Search-icon" src={"/search.svg"} />
-          <input
-            className="bg-second-color outline-none"
-            placeholder="Cari program kerja"
-            type="text"
-            name="search"
-            id="search"
-          />
-        </label>
+        <Search search={searchItem} />
       </div>
       <div className="overflow-x-auto rounded-t-md">
         {loading ? (
