@@ -59,7 +59,7 @@ const SumberDana = () => {
   }, []);
 
   return (
-    <section data-aos="fade-down-left" className="card">
+    <section data-aos="fade-down-left" className="card w-full md:w-1/2">
       <h3 className="title-section">Sumber Dana</h3>
       <div>
         <ol className="list-decimal pl-3 font-medium">
