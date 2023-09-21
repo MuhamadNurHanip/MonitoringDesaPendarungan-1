@@ -11,7 +11,7 @@ import { getYear } from "@/lib/getYear";
 const TableProker = () => {
   const [proker, setProker] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [year, setYear] = useState(2023);
+  const [year, setYear] = useState();
 
   const getProker = async () => {
     try {
@@ -25,10 +25,26 @@ const TableProker = () => {
     }
   };
 
+  const currentThisYear = () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    return currentYear;
+  };
+
   let no = 1;
+  const items = [];
+
+  for (let i = 2010; i <= currentThisYear(); i++) {
+    items.push(
+      <option key={i} value={i} selected={year == i}>
+        {i}
+      </option>
+    );
+  }
 
   useEffect(() => {
     getProker();
+    setYear(currentThisYear());
   }, []);
 
   return (
@@ -37,17 +53,14 @@ const TableProker = () => {
       data-aos-anchor-placement="top-bottom"
       className="card space-y-2"
     >
-      <div className="flex justify-between">
+      <div className="flex">
         <Link className="button w-max" href={"/task/add"}>
           <p>Tambah Program Kerja</p>
         </Link>
-        <button className="button w-max" type="button">
-          Export Data
-        </button>
       </div>
       <div className="flex flex-col gap-2 md:flex-row justify-between md:items-center">
         <label className="flex items-center gap-2" htmlFor="time">
-          <span className="font-semibold">Waktu</span>
+          <span className="font-semibold">Tahun</span>
           <select
             onChange={(e) => {
               setYear(e.target.value);
@@ -56,15 +69,7 @@ const TableProker = () => {
             name="time"
             id="time"
           >
-            <option value="2021" selected={year == 2021}>
-              2021
-            </option>
-            <option value="2022" selected={year == 2022}>
-              2022
-            </option>
-            <option value="2023" selected={year == 2023}>
-              2023
-            </option>
+            {items}
           </select>
         </label>
         <label

@@ -10,7 +10,7 @@ const Title = () => {
     return <title>Progress Program Kerja | Desa Pendarungan</title>;
   if (path == "report")
     return <title>Laporan Program Kerja | Desa Pendarungan</title>;
-  if (path == "money") return <title>Pendanaan | Desa Pendarungan</title>;
+  if (path == "money") return <title>Master Data | Desa Pendarungan</title>;
   if (path == "login") return <title>Login | Desa Pendarungan</title>;
 };
 

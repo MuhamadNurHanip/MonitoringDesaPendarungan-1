@@ -191,30 +191,6 @@ const FormEdit = ({ id }) => {
         >
           Tahun anggaran program kerja anda...
         </LabelForm>
-        <LabelForm
-          name={"Status Program Kerja"}
-          option={true}
-          value={
-            (proker.status == "Rencana" && 1) ||
-            (proker.status == "Progress" && 2) ||
-            (proker.status == "Selesai" && 3)
-          }
-          dataOption={[
-            { id: 1, nama: "Rencana" },
-            { id: 2, nama: "Progress" },
-            { id: 3, nama: "Selesai" },
-          ]}
-          onChange={(e) => {
-            let status;
-            const value = e.target.value;
-            if (value == 1) status = "Rencana";
-            if (value == 2) status = "Progress";
-            if (value == 3) status = "Selesai";
-            setProker({ ...proker, status });
-          }}
-        >
-          Status program kerja anda...
-        </LabelForm>
       </div>
       <button className="button w-full font-semibold col-span-2" type="submit">
         Edit Program Kerja

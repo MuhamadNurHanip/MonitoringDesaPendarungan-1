@@ -1,16 +1,17 @@
 "use client";
 import Image from "next/image";
 import Action from "./Action";
-import { Process } from "@/components/Status";
+import { Finish, Process, Rencana } from "@/components/Status";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import TableLoading from "@/components/TableLoading";
 import { getYear } from "@/lib/getYear";
+import SetProgress from "./SetProgress";
 
 const TableProgress = () => {
   const [proker, setProker] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [year, setYear] = useState(2023);
+  const [year, setYear] = useState();
 
   const getProker = async () => {
     try {
@@ -24,10 +25,26 @@ const TableProgress = () => {
     }
   };
 
+  const currentThisYear = () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    return currentYear;
+  };
+
   let no = 1;
+  const items = [];
+
+  for (let i = 2010; i <= currentThisYear(); i++) {
+    items.push(
+      <option key={i} value={i} selected={year == i}>
+        {i}
+      </option>
+    );
+  }
 
   useEffect(() => {
     getProker();
+    setYear(currentThisYear());
   }, []);
 
   return (
@@ -36,31 +53,27 @@ const TableProgress = () => {
       data-aos-anchor-placement="top-bottom"
       className="card space-y-2"
     >
-      <div className="flex md:justify-end">
-        <button className="button w-max" type="button">
-          Export Data
-        </button>
-      </div>
+      <SetProgress option={proker} />
+
       <div className="flex flex-col gap-2 md:flex-row justify-between md:items-center">
         <label className="flex items-center gap-2" htmlFor="time">
-          <span className="font-semibold">Waktu</span>
+          <span className="font-semibold">Tahun</span>
           <select
             onChange={(e) => {
               setYear(e.target.value);
             }}
+            defaultValue={year}
             className="bg-primary-color text-second-color rounded-md outline-none text-xs p-2"
             name="time"
             id="time"
           >
-            <option value="2021" selected={year == 2021}>
-              2021
-            </option>
-            <option value="2022" selected={year == 2022}>
+            {items}
+            {/* <option value="2022" selected={year == 2022}>
               2022
             </option>
             <option value="2023" selected={year == 2023}>
               2023
-            </option>
+            </option> */}
           </select>
         </label>
         <label
@@ -92,16 +105,15 @@ const TableProgress = () => {
             </thead>
             <tbody>
               {proker.map((item, index) => {
-                if (
-                  item.status == "Progress" &&
-                  getYear(item.tanggal) == year
-                ) {
+                if (getYear(item.tanggal) == year) {
                   return (
                     <tr key={index}>
                       <th>{no++}</th>
                       <td className="max-w-[180px]">{item.judul}</td>
                       <td>
-                        <Process />
+                        {item.status == "Rencana" && <Rencana />}
+                        {item.status == "Progress" && <Process />}
+                        {item.status == "Selesai" && <Finish />}
                       </td>
                       <td>
                         <Action item={item} key={index} />

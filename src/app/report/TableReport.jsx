@@ -9,9 +9,9 @@ import { useEffect, useState } from "react";
 
 const TableReport = () => {
   const [proker, setProker] = useState([]);
-  const [status, setStatus] = useState("Rencana");
+  const [status, setStatus] = useState("Semua");
   const [loading, setLoading] = useState(true);
-  const [year, setYear] = useState(2023);
+  const [year, setYear] = useState();
 
   const getProker = async () => {
     try {
@@ -25,11 +25,26 @@ const TableReport = () => {
     }
   };
 
+  const currentThisYear = () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    return currentYear;
+  };
+
   let no = 1;
+  const items = [];
+
+  for (let i = 2010; i <= currentThisYear(); i++) {
+    items.push(
+      <option key={i} value={i} selected={year == i}>
+        {i}
+      </option>
+    );
+  }
 
   useEffect(() => {
     getProker();
-    console.log(proker);
+    setYear(currentThisYear());
   }, []);
   return (
     <section
@@ -40,7 +55,7 @@ const TableReport = () => {
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-2 md:flex-row md:items-center">
           <label className="flex items-center gap-2" htmlFor="time">
-            <span className="font-semibold">Waktu</span>
+            <span className="font-semibold">Tahun</span>
             <select
               onChange={(e) => {
                 setYear(e.target.value);
@@ -49,15 +64,7 @@ const TableReport = () => {
               name="time"
               id="time"
             >
-              <option value="2021" selected={year == 2021}>
-                2021
-              </option>
-              <option value="2022" selected={year == 2022}>
-                2022
-              </option>
-              <option value="2023" selected={year == 2023}>
-                2023
-              </option>
+              {items}
             </select>
           </label>
           <label className="flex items-center gap-2" htmlFor="time">
@@ -68,6 +75,7 @@ const TableReport = () => {
               name="time"
               id="time"
             >
+              <option value="Semua">Semua Data</option>
               <option value="Rencana">Rencana</option>
               <option value="Progress">Proses</option>
               <option value="Selesai">Selesai</option>
@@ -100,7 +108,10 @@ const TableReport = () => {
             </thead>
             <tbody>
               {proker.map((item) => {
-                if (item.status == status && getYear(item.tanggal) == year) {
+                if (
+                  (item.status == status && getYear(item.tanggal) == year) ||
+                  (status == "Semua" && getYear(item.tanggal) == year)
+                ) {
                   return (
                     <tr key={item.id}>
                       <th>{no++}</th>
