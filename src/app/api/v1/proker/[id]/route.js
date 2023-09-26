@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prismaclient";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req) => {
   try {
@@ -17,10 +17,18 @@ export const GET = async (req) => {
 export const PATCH = async (req) => {
   try {
     const id = await req.url.split("/")[6];
-    const data = await req.json();
+    const data = await req.formData();
+    const evaluasi = data.get("evaluasi");
+    const hambatan = data.get("hambatan");
+    const tanggalRealisasi = data.get("tanggalRealisasi");
+    const jumlahRealisasi = Number(data.get("jumlahRealisasi"));
+    const status = data.get("status");
+    // const images = data.get("images");
+    // images.map((item) => console.log(item));
+
     const response = await prisma.proker.update({
       where: { id: Number(id) },
-      data,
+      data: { evaluasi, hambatan, tanggalRealisasi, jumlahRealisasi, status },
     });
     return NextResponse.json(
       { message: "PATCH Data by Id", response },

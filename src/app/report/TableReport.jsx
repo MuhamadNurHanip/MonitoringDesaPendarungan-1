@@ -150,17 +150,10 @@ const TableReport = () => {
                       <td className="min-w-max">{setDate(item.tanggal)}</td>
                       <td>{item.fundsName}</td>
                       <td>{setMoney(item.jumlahAnggaran)}</td>
+                      <td>{setMoney(item.jumlahRealisasi) || "Belum ada"}</td>
                       <td>
-                        {item.realisasiAnggaran
-                          ? setMoney(item.realisasiAnggaran)
-                          : "Belum ada"}
-                      </td>
-                      <td>
-                        {item.jumlahAnggaran - item.realisasiAnggaran
-                          ? setMoney(
-                              item.jumlahAnggaran - item.realisasiAnggaran
-                            )
-                          : "Belum ada"}
+                        {setMoney(item.jumlahAnggaran - item.jumlahRealisasi) ||
+                          "Belum ada"}
                       </td>
                       <td>
                         {item.status == "Rencana" && <Rencana />}
