@@ -24,6 +24,7 @@ export const PATCH = async (req) => {
     const jumlahRealisasi = Number(data.get("jumlahRealisasi"));
     const status = data.get("status");
     // const images = data.get("images");
+    // console.log(images);
     // images.map((item) => console.log(item));
 
     const response = await prisma.proker.update({

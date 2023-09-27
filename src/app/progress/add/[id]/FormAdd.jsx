@@ -31,7 +31,7 @@ const FormAdd = ({ id }) => {
       (e.target[4].value == 3 && "Selesai") ||
       "Progress";
     data.append("status", status);
-    // data.append("images", images);
+    data.append("images", images);
     // const bytes = await images.buffer();
     // const buffer = Buffer.from(images[0]);
     // await writeFile("/public/documentation/kajsdjkasd.jpg", buffer);
@@ -57,7 +57,7 @@ const FormAdd = ({ id }) => {
 
   const handleFileSelected = (e) => {
     if (e.target.files) {
-      console.log(e.target.files[0].filepath);
+      console.log("ini file gambar", e.target.files);
       const files = Array.from(e.target.files);
       setImages(files);
     }
