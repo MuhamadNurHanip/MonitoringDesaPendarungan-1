@@ -1,9 +1,9 @@
 import AOSInit from "@/lib/aos";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import Navbar from "@/components/Navbar";
 import Title from "@/components/Title";
 import Layout from "@/components/Layout";
+import { Session } from "next-auth";
 
 export const metadata = {
   title: "Create Next App",

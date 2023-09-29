@@ -16,8 +16,22 @@ export const GET = async () => {
 export const POST = async (req) => {
   try {
     const data = await req.json();
+
+    // const existingUserByUsername = await prisma.user.findUnique({
+    //   where: { username: data.username },
+    // });
+    // console.log(existingUserByUsername);
+
+    // if (existingUserByUsername)
+    //   return NextResponse.json(
+    //     { message: "User with this username, already exists" },
+    //     { status: 409 }
+    //   );
+
     const setData = await prisma.user.create({ data });
+
     if (setData) return NextResponse.json({ message: "Add user success!" });
+
     return NextResponse.json({ message: "Add user failed! something wrong." });
   } catch (error) {
     console.log(error.message);
