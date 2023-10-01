@@ -1,6 +1,6 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-export function middleware(req) {
+export async function middleware(req) {
   const isLogin = true;
 
   if (isLogin) {

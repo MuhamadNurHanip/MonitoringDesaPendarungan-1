@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Title from "@/components/Title";
 import Layout from "@/components/Layout";
 import { Session } from "next-auth";
+import Provider from "@/components/Provider";
 
 export const metadata = {
   title: "Create Next App",
@@ -17,8 +18,10 @@ export default function RootLayout({ children }) {
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <Title />
       <body>
-        <Layout>{children}</Layout>
-        <Analytics />
+        <Provider>
+          <Layout>{children}</Layout>
+          <Analytics />
+        </Provider>
       </body>
     </html>
   );

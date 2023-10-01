@@ -34,11 +34,31 @@ const authOptions = {
         return {
           id: `${existingUser.id}`,
           username: existingUser.username,
-          email: existingUser.email,
+          fullname: existingUser.fullname,
+          roleuser: existingUser.roleuser,
         };
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        return { ...token, username: user.username, roleuser: user.roleuser };
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          username: token.username,
+          roleuser: token.roleuser,
+        },
+      };
+      return session;
+    },
+  },
 };
 
 export default authOptions;

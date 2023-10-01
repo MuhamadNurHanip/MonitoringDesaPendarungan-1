@@ -27,7 +27,7 @@ const LoginAdmin = () => {
     });
 
     if (signInData.error) {
-      console.log(signInData.error);
+      alert("Something wrong!");
     } else {
       router.push("/");
     }
