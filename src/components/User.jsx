@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 
 const User = () => {
   const { data } = useSession();
-  return <pre>{JSON.stringify(data)}</pre>;
+  return <span>{data.user.fullname}</span>;
 };
 
 export default User;

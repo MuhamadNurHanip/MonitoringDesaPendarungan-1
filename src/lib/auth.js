@@ -43,7 +43,12 @@ const authOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        return { ...token, username: user.username, roleuser: user.roleuser };
+        return {
+          ...token,
+          username: user.username,
+          roleuser: user.roleuser,
+          fullname: user.fullname,
+        };
       }
       return token;
     },
@@ -54,6 +59,7 @@ const authOptions = {
           ...session.user,
           username: token.username,
           roleuser: token.roleuser,
+          fullname: token.fullname,
         },
       };
       return session;
