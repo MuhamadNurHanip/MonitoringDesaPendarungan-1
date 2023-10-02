@@ -1,24 +1,31 @@
 import { NextResponse } from "next/server";
+import withAuth from "./middlewares/withAuth";
 
-export async function middleware(req) {
-  const isLogin = true;
-
-  if (isLogin) {
-    return NextResponse.next();
-  } else {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+export async function mainMiddleware(req) {
+  const res = NextResponse.next();
+  return res;
 }
 
-export const config = {
-  matcher: [
-    "/",
-    "/accounts",
-    "/money",
-    "/progress",
-    "/report",
-    "/task",
-    "/task/add",
-    "/task/edit/:id",
-  ],
-};
+export default withAuth(mainMiddleware, [
+  "/",
+  "/accounts",
+  "/money",
+  "/progress",
+  "/report",
+  "/task",
+  "/task/add",
+  "/task/edit/:id",
+]);
+
+// export const config = {
+//   matcher: [
+//     "/",
+//     "/accounts",
+//     "/money",
+//     "/progress",
+//     "/report",
+//     "/task",
+//     "/task/add",
+//     "/task/edit/:id",
+//   ],
+// };
