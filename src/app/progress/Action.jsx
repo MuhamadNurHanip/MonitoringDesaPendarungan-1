@@ -2,14 +2,16 @@
 import { Process, Rencana } from "@/components/Status";
 import { setDate } from "@/lib/setDate";
 import { setMoney } from "@/lib/setMoney";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Action = ({ item }) => {
+  const { data } = useSession();
   return (
     <>
       <div className="flex flex-col md:flex-row gap-2 items-center">
-        {item.status == "Progress" && (
+        {item.status == "Progress" && data?.user.roleuser == "admin" && (
           <Link href={`/progress/add/${item.id}`}>
             <Image
               className="cursor-pointer"

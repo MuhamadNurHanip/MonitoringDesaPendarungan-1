@@ -1,6 +1,7 @@
 "use client";
 import LabelForm from "@/components/LabelForm";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -8,6 +9,7 @@ const SumberDana = () => {
   const [fund, setFund] = useState([]);
   const [edit, setEdit] = useState();
   const [valueEdit, setValueEdit] = useState();
+  const { data } = useSession();
 
   const getFunds = async () => {
     const data = (await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/funds`))
@@ -67,50 +69,54 @@ const SumberDana = () => {
             <li key={item.id}>
               <div className="flex justify-between items-center">
                 <p>{item.nama}</p>
-                <div className="flex gap-3">
-                  <button
-                    className="cursor-pointer outline-none"
-                    onClick={() => {
-                      setEdit(item.id);
-                      setValueEdit(item.nama);
-                      return window.edit.showModal();
-                    }}
-                  >
-                    <Image
-                      width={20}
-                      height={20}
-                      alt="edit-icon"
-                      src={"/edit.svg"}
-                    />
-                  </button>
-                  <button
-                    onClick={() => {
-                      const konfirmasi = confirm(
-                        "Apakah anda yakin akan menghapus item in?"
-                      );
-                      if (konfirmasi) return deleteFund(item.id);
-                    }}
-                    className="cursor-pointer outline-none"
-                  >
-                    <Image
-                      width={18}
-                      height={18}
-                      alt="trash-icon"
-                      src={"/trash.svg"}
-                    />
-                  </button>
-                </div>
+                {data?.user.roleuser == "admin" && (
+                  <div className="flex gap-3">
+                    <button
+                      className="cursor-pointer outline-none"
+                      onClick={() => {
+                        setEdit(item.id);
+                        setValueEdit(item.nama);
+                        return window.edit.showModal();
+                      }}
+                    >
+                      <Image
+                        width={20}
+                        height={20}
+                        alt="edit-icon"
+                        src={"/edit.svg"}
+                      />
+                    </button>
+                    <button
+                      onClick={() => {
+                        const konfirmasi = confirm(
+                          "Apakah anda yakin akan menghapus item in?"
+                        );
+                        if (konfirmasi) return deleteFund(item.id);
+                      }}
+                      className="cursor-pointer outline-none"
+                    >
+                      <Image
+                        width={18}
+                        height={18}
+                        alt="trash-icon"
+                        src={"/trash.svg"}
+                      />
+                    </button>
+                  </div>
+                )}
               </div>
             </li>
           ))}
         </ol>
       </div>
-      <button
-        className="outline-none font-semibold mt-3 button"
-        onClick={() => window.add.showModal()}
-      >
-        Tambah Sumber Dana
-      </button>
+      {data?.user.roleuser == "admin" && (
+        <button
+          className="outline-none font-semibold mt-3 button"
+          onClick={() => window.add.showModal()}
+        >
+          Tambah Sumber Dana
+        </button>
+      )}
       <dialog id="add" className="modal overflow-y-scroll">
         <div className="modal-box max-w-2xl mx-3 md:w-2/5 w-11/12 no-scrollbar bg-white">
           <form onSubmit={addFund} method="dialog" action="">

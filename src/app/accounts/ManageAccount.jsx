@@ -1,11 +1,13 @@
 "use client";
 import LabelForm from "@/components/LabelForm";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const ManageAccount = () => {
   const [user, setUser] = useState([]);
+  const { data } = useSession();
   const [option, setOption] = useState([
     { id: 1, nama: "Admin" },
     { id: 2, nama: "Pejabat Desa" },
@@ -51,6 +53,8 @@ const ManageAccount = () => {
   useEffect(() => {
     getUser();
   }, []);
+
+  if (data?.user.roleuser != "admin") return;
 
   return (
     <>

@@ -5,8 +5,10 @@ import { setDate } from "@/lib/setDate";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 const Action = ({ item, method }) => {
+  const { data } = useSession();
   const deleteData = async () => {
     const konfirmasi = confirm(
       "Apakah anda yakin ingin menghapus item berikut?"
@@ -37,23 +39,27 @@ const Action = ({ item, method }) => {
             src={"/view.svg"}
           />
         </button>
-        <Link href={`/task/edit/${item.id}`}>
-          <Image
-            className="cursor-pointer"
-            width={22}
-            height={22}
-            alt="edit-icon"
-            src={"/edit.svg"}
-          />
-        </Link>
-        <Image
-          onClick={deleteData}
-          className="cursor-pointer"
-          width={18}
-          height={18}
-          alt="trash-icon"
-          src={"/trash.svg"}
-        />
+        {data?.user.roleuser == "admin" && (
+          <>
+            <Link href={`/task/edit/${item.id}`}>
+              <Image
+                className="cursor-pointer"
+                width={22}
+                height={22}
+                alt="edit-icon"
+                src={"/edit.svg"}
+              />
+            </Link>
+            <Image
+              onClick={deleteData}
+              className="cursor-pointer"
+              width={18}
+              height={18}
+              alt="trash-icon"
+              src={"/trash.svg"}
+            />
+          </>
+        )}
       </div>
       <dialog id="modal" className="modal overflow-y-scroll">
         <div className="modal-box max-w-2xl mx-3 w-11/12 no-scrollbar bg-white">
