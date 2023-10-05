@@ -8,12 +8,14 @@ import { setDate } from "@/lib/setDate";
 import TableLoading from "@/components/TableLoading";
 import { getYear } from "@/lib/getYear";
 import Search from "@/components/Search";
+import { useSession } from "next-auth/react";
 
 const TableProker = () => {
   const [proker, setProker] = useState([]);
   const [oldProker, setOldProker] = useState([]);
   const [loading, setLoading] = useState(true);
   const [year, setYear] = useState();
+  const { data } = useSession();
 
   const getProker = async () => {
     try {
@@ -67,11 +69,13 @@ const TableProker = () => {
       data-aos-anchor-placement="top-bottom"
       className="card space-y-2"
     >
-      <div className="flex">
-        <Link className="button w-max" href={"/task/add"}>
-          <p>Tambah Program Kerja</p>
-        </Link>
-      </div>
+      {data?.user.roleuser == "admin" && (
+        <div className="flex">
+          <Link className="button w-max" href={"/task/add"}>
+            <p>Tambah Program Kerja</p>
+          </Link>
+        </div>
+      )}
       <div className="flex flex-col gap-2 md:flex-row justify-between md:items-center">
         <label className="flex items-center gap-2" htmlFor="time">
           <span className="font-semibold">Tahun</span>
