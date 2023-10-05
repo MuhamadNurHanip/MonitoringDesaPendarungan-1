@@ -15,8 +15,8 @@ const ManageAccount = () => {
   const [loading, setLoading] = useState(true);
 
   const getUser = async () => {
-    const data = (await axios.get("http://localhost:3000/api/v1/users")).data
-      .data;
+    const data = (await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`))
+      .data.data;
     setUser(data);
     setLoading(false);
   };
@@ -57,33 +57,33 @@ const ManageAccount = () => {
     getUser();
   }, []);
 
-  if (data?.user.roleuser != "admin") return;
-
   return (
     <>
-      <section data-aos="fade-down-right" className="card">
-        <h1 className="title-section">Tambah Akun Baru</h1>
-        <form onSubmit={addUser} className="space-y-2" action="">
-          <LabelForm name={"Nama Lengkap"} type={"text"}>
-            Nama lengkap anda ...
-          </LabelForm>
-          <LabelForm name={"Username"} type={"text"}>
-            Username anda ...
-          </LabelForm>
-          <LabelForm name={"Password"} type={"password"}>
-            Password anda ...
-          </LabelForm>
-          <LabelForm name={"Konfirmasi Password"} type={"password"}>
-            Konfirmasi Password anda ...
-          </LabelForm>
-          <LabelForm name={"Role User"} option={true} dataOption={option}>
-            Pilih role user anda ...
-          </LabelForm>
-          <button className="button w-full font-semibold" type="submit">
-            Tambahkan Akun
-          </button>
-        </form>
-      </section>
+      {data?.user.roleuser != "admin" && (
+        <section data-aos="fade-down-right" className="card">
+          <h1 className="title-section">Tambah Akun Baru</h1>
+          <form onSubmit={addUser} className="space-y-2" action="">
+            <LabelForm name={"Nama Lengkap"} type={"text"}>
+              Nama lengkap anda ...
+            </LabelForm>
+            <LabelForm name={"Username"} type={"text"}>
+              Username anda ...
+            </LabelForm>
+            <LabelForm name={"Password"} type={"password"}>
+              Password anda ...
+            </LabelForm>
+            <LabelForm name={"Konfirmasi Password"} type={"password"}>
+              Konfirmasi Password anda ...
+            </LabelForm>
+            <LabelForm name={"Role User"} option={true} dataOption={option}>
+              Pilih role user anda ...
+            </LabelForm>
+            <button className="button w-full font-semibold" type="submit">
+              Tambahkan Akun
+            </button>
+          </form>
+        </section>
+      )}
       <section
         data-aos="fade-down-left"
         className="card md:order-last space-y-3"
