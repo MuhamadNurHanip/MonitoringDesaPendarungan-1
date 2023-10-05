@@ -1,21 +1,27 @@
 "use client";
-import { Rencana } from "@/components/Status";
+import { Process, Rencana } from "@/components/Status";
+import { setDate } from "@/lib/setDate";
+import { setMoney } from "@/lib/setMoney";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Action = () => {
+const Action = ({ item }) => {
+  const { data } = useSession();
   return (
     <>
       <div className="flex flex-col md:flex-row gap-2 items-center">
-        <Link href={"/progress/add"}>
-          <Image
-            className="cursor-pointer"
-            width={22}
-            height={22}
-            alt="add-icon"
-            src={"/plus.svg"}
-          />
-        </Link>
+        {item.status == "Progress" && data?.user.roleuser == "admin" && (
+          <Link href={`/progress/add/${item.id}`}>
+            <Image
+              className="cursor-pointer"
+              width={22}
+              height={22}
+              alt="add-icon"
+              src={"/plus.svg"}
+            />
+          </Link>
+        )}
         <button
           className="outline-none"
           onClick={() => window.modal.showModal()}
@@ -36,50 +42,49 @@ const Action = () => {
             <h1 className="font-bold text-lg">Detail Program Kerja</h1>
           </div>
           <h3 className="font-bold">Judul Program Kerja</h3>
-          <p className="pb-2">Program Lingkungan Bersih</p>
+          <p className="pb-2">{item.judul}</p>
           <h3 className="font-bold">Deskripsi Program Kerja</h3>
-          <p className="pb-2">
-            Mengadakan kampanye pembersihan rutin di sekitar desa, termasuk
-            pengumpulan sampah dan daur ulang. Memasang tempat sampah yang
-            strategis dan memberikan edukasi kepada penduduk tentang pemilahan
-            sampah. Menanam pohon dan tanaman hias di sekitar desa untuk
-            meningkatkan keindahan dan kesejukan lingkungan.
-          </p>
+          <p className="pb-2">{item.deskripsi}</p>
           <h3 className="font-bold">Hambatan Program Kerja</h3>
-          <p className="pb-2">Kurangnya kesadaran Masyarakat</p>
+          <p className="pb-2">{item.hambatan || "Belum ada"}</p>
           <h3 className="font-bold">Evaluasi Program Kerja</h3>
-          <p className="pb-2">
-            Pemerintah desa perlu melakukan sosialisasi mengenai kesadaran
-            lingkungan desa
-          </p>
+          <p className="pb-2">{item.evaluasi || "Belum ada"}</p>
           <div className="grid grid-cols-2">
             <div>
               <h3 className="font-bold">Sumber Dana</h3>
-              <p className="pb-2">Kementrian Keuangan</p>
+              <p className="pb-2">{item.fundsName}</p>
             </div>
             <div>
               <h3 className="font-bold">Status Program Kerja</h3>
-              <Rencana />
+              <Process />
             </div>
           </div>
           <div className="grid grid-cols-2">
             <div>
               <h3 className="font-bold">Jumlah Anggaran</h3>
-              <p className="pb-2">Rp. 20.000.000</p>
+              <p className="pb-2">{setMoney(item.jumlahAnggaran)}</p>
             </div>
             <div>
               <h3 className="font-bold">Jumlah Realisasi Anggaran</h3>
-              <p className="pb-2">Rp. 20.000.000</p>
+              <p className="pb-2">
+                {item.jumlahRealisasi
+                  ? setMoney(item.jumlahRealisasi)
+                  : "Belum ada"}
+              </p>
             </div>
           </div>
           <div className="grid grid-cols-2">
             <div>
               <h3 className="font-bold">Tanggal Pelaksanaan</h3>
-              <p className="pb-2">12/12/2023</p>
+              <p className="pb-2">{setDate(item.tanggal)}</p>
             </div>
             <div>
               <h3 className="font-bold">Realisasi Tanggal Pelaksanaan</h3>
-              <p className="pb-2">12/12/2023</p>
+              <p className="pb-2">
+                {item.tanggalRealisasi
+                  ? setDate(item.tanggalRealisasi)
+                  : "Belum ada"}
+              </p>
             </div>
           </div>
           <h3 className="font-bold">Dokumentasi Program Kerja</h3>

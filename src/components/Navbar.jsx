@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 const Navbar = () => {
   const path = usePathname().split("/")[1];
@@ -43,30 +44,6 @@ const Navbar = () => {
                 />
               )}
               <h1 className="hidden font-bold md:block">Dashboard</h1>
-            </Link>
-          </li>
-          <li
-            className={`p-2 rounded-lg ${
-              path == "accounts" ? "bg-second-color text-primary-color" : null
-            }`}
-          >
-            <Link className="flex items-center gap-3" href={"/accounts"}>
-              {path == "accounts" ? (
-                <Image
-                  alt="icon-navbar"
-                  src={"/personblack-icon.svg"}
-                  width={24}
-                  height={24}
-                />
-              ) : (
-                <Image
-                  alt="icon-navbar"
-                  src={"/personwhite-icon.svg"}
-                  width={24}
-                  height={24}
-                />
-              )}
-              <h1 className="hidden font-bold md:block">Accounts</h1>
             </Link>
           </li>
           <li
@@ -162,7 +139,31 @@ const Navbar = () => {
                   height={24}
                 />
               )}
-              <h1 className="hidden font-bold md:block">Pendanaan</h1>
+              <h1 className="hidden font-bold md:block">Master Data</h1>
+            </Link>
+          </li>
+          <li
+            className={`p-2 rounded-lg ${
+              path == "accounts" ? "bg-second-color text-primary-color" : null
+            }`}
+          >
+            <Link className="flex items-center gap-3" href={"/accounts"}>
+              {path == "accounts" ? (
+                <Image
+                  alt="icon-navbar"
+                  src={"/personblack-icon.svg"}
+                  width={24}
+                  height={24}
+                />
+              ) : (
+                <Image
+                  alt="icon-navbar"
+                  src={"/personwhite-icon.svg"}
+                  width={24}
+                  height={24}
+                />
+              )}
+              <h1 className="hidden font-bold md:block">Accounts</h1>
             </Link>
           </li>
           <li
@@ -170,7 +171,15 @@ const Navbar = () => {
               path == "logout" ? "bg-second-color text-primary-color" : null
             }`}
           >
-            <Link className="flex items-center gap-3" href={"/logout"}>
+            <button
+              className="flex items-center gap-3"
+              onClick={() =>
+                signOut({
+                  redirect: true,
+                  callbackUrl: `${window.location.origin}/login`,
+                })
+              }
+            >
               {path == "logout" ? (
                 <Image
                   alt="icon-navbar"
@@ -187,7 +196,7 @@ const Navbar = () => {
                 />
               )}
               <h1 className="hidden font-bold md:block">Logout</h1>
-            </Link>
+            </button>
           </li>
         </ul>
       </div>

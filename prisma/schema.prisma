@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  fullname   String
+  username   String   @unique
+  password   String
+  roleuser   RoleUser
+  imgprofile String?
+}
+
+enum RoleUser {
+  admin
+  pejabatdesa
+}
+
+model Funds {
+  id     Int      @id @default(autoincrement())
+  nama   String
+  Proker Proker[]
+
+  @@unique([id, nama])
+}
+
+model Proker {
+  id               Int        @id @default(autoincrement())
+  judul            String
+  deskripsi        String
+  tujuan           String
+  sasaran          String
+  penyelenggara    String
+  hambatan         String?
+  evaluasi         String?
+  fundsId          Int?
+  fundsName        String?
+  funds            Funds?     @relation(fields: [fundsId, fundsName], references: [id, nama])
+  status           RoleStatus @default(value: Rencana)
+  jumlahAnggaran   Int
+  jumlahRealisasi  Int?       @default(0)
+  tahunAnggaran    Int
+  tanggal          String
+  tanggalRealisasi String?
+  dokumentasi      String?
+}
+
+enum RoleStatus {
+  Rencana
+  Progress
+  Selesai
+}

@@ -1,15 +1,35 @@
 "use client";
-import { Rencana } from "@/components/Status";
+import { Finish, Process, Rencana } from "@/components/Status";
+import { setMoney } from "@/lib/setMoney";
+import { setDate } from "@/lib/setDate";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
-const Action = () => {
+const Action = ({ item, method }) => {
+  const { data } = useSession();
+  const deleteData = async () => {
+    const konfirmasi = confirm(
+      "Apakah anda yakin ingin menghapus item berikut?"
+    );
+    if (konfirmasi) {
+      const deleteItem = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/proker/${item.id}`
+      );
+      if (!deleteItem) return alert("Delete data gagal! something wrong!");
+      alert("Delete data berhasil");
+      method();
+      return;
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col md:flex-row gap-2 items-center">
         <button
           className="outline-none"
-          onClick={() => window.modal.showModal()}
+          onClick={() => document.getElementById("modal").showModal()}
         >
           <Image
             className="cursor-pointer"
@@ -19,22 +39,27 @@ const Action = () => {
             src={"/view.svg"}
           />
         </button>
-        <Link href={"/task/edit"}>
-          <Image
-            className="cursor-pointer"
-            width={22}
-            height={22}
-            alt="edit-icon"
-            src={"/edit.svg"}
-          />
-        </Link>
-        <Image
-          className="cursor-pointer"
-          width={18}
-          height={18}
-          alt="trash-icon"
-          src={"/trash.svg"}
-        />
+        {data?.user.roleuser == "admin" && (
+          <>
+            <Link href={`/task/edit/${item.id}`}>
+              <Image
+                className="cursor-pointer"
+                width={22}
+                height={22}
+                alt="edit-icon"
+                src={"/edit.svg"}
+              />
+            </Link>
+            <Image
+              onClick={deleteData}
+              className="cursor-pointer"
+              width={18}
+              height={18}
+              alt="trash-icon"
+              src={"/trash.svg"}
+            />
+          </>
+        )}
       </div>
       <dialog id="modal" className="modal overflow-y-scroll">
         <div className="modal-box max-w-2xl mx-3 w-11/12 no-scrollbar bg-white">
@@ -43,50 +68,51 @@ const Action = () => {
             <h1 className="font-bold text-lg">Detail Program Kerja</h1>
           </div>
           <h3 className="font-bold">Judul Program Kerja</h3>
-          <p className="pb-2">Program Lingkungan Bersih</p>
+          <p className="pb-2">{item.judul}</p>
           <h3 className="font-bold">Deskripsi Program Kerja</h3>
-          <p className="pb-2">
-            Mengadakan kampanye pembersihan rutin di sekitar desa, termasuk
-            pengumpulan sampah dan daur ulang. Memasang tempat sampah yang
-            strategis dan memberikan edukasi kepada penduduk tentang pemilahan
-            sampah. Menanam pohon dan tanaman hias di sekitar desa untuk
-            meningkatkan keindahan dan kesejukan lingkungan.
-          </p>
+          <p className="pb-2">{item.deskripsi}</p>
           <h3 className="font-bold">Hambatan Program Kerja</h3>
-          <p className="pb-2">Kurangnya kesadaran Masyarakat</p>
+          <p className="pb-2">{item.hambatan || "Belum ada"}</p>
           <h3 className="font-bold">Evaluasi Program Kerja</h3>
-          <p className="pb-2">
-            Pemerintah desa perlu melakukan sosialisasi mengenai kesadaran
-            lingkungan desa
-          </p>
+          <p className="pb-2">{item.evaluasi || "Belum ada"}</p>
           <div className="grid grid-cols-2">
             <div>
               <h3 className="font-bold">Sumber Dana</h3>
-              <p className="pb-2">Kementrian Keuangan</p>
+              <p className="pb-2">{item.fundsName}</p>
             </div>
             <div>
               <h3 className="font-bold">Status Program Kerja</h3>
-              <Rencana />
+              {item.status == "Rencana" && <Rencana />}
+              {item.status == "Progress" && <Process />}
+              {item.status == "Selesai" && <Finish />}
             </div>
           </div>
           <div className="grid grid-cols-2">
             <div>
               <h3 className="font-bold">Jumlah Anggaran</h3>
-              <p className="pb-2">Rp. 20.000.000</p>
+              <p className="pb-2">{setMoney(item.jumlahAnggaran)}</p>
             </div>
             <div>
               <h3 className="font-bold">Jumlah Realisasi Anggaran</h3>
-              <p className="pb-2">Rp. 20.000.000</p>
+              <p className="pb-2">
+                {item.jumlahRealisasi
+                  ? setMoney(item.jumlahRealisasi)
+                  : "Belum ada"}
+              </p>
             </div>
           </div>
           <div className="grid grid-cols-2">
             <div>
               <h3 className="font-bold">Tanggal Pelaksanaan</h3>
-              <p className="pb-2">12/12/2023</p>
+              <p className="pb-2">{setDate(item.tanggal)}</p>
             </div>
             <div>
               <h3 className="font-bold">Realisasi Tanggal Pelaksanaan</h3>
-              <p className="pb-2">12/12/2023</p>
+              <p className="pb-2">
+                {item.tanggalRealisasi
+                  ? setDate(item.tanggalRealisasi)
+                  : "Belum ada"}
+              </p>
             </div>
           </div>
           <h3 className="font-bold">Dokumentasi Program Kerja</h3>

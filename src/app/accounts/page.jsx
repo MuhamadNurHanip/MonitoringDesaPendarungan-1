@@ -1,14 +1,12 @@
 import Header from "@/components/Header";
-import AddAccount from "./AddAccount";
-import ListAccount from "@/components/ListAccount";
+import ManageAccount from "./ManageAccount";
 
 const Accounts = () => {
   return (
     <main>
       <Header page={"Manajemen Akun"} />
       <div className="flex flex-col gap-3 md:flex-row">
-        <AddAccount />
-        <ListAccount />
+        <ManageAccount />
       </div>
     </main>
   );

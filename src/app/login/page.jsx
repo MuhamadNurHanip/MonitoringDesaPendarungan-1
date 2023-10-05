@@ -1,5 +1,5 @@
 import Image from "next/image";
-import TypeLogin from "./TypeLogin";
+import FormLogin from "./FormLogin";
 
 const Login = () => {
   return (
@@ -16,7 +16,7 @@ const Login = () => {
         </div>
       </div>
       <div className="w-full h-screen text-black bg-second-color grid place-items-center">
-        <TypeLogin />
+        <FormLogin />
       </div>
     </div>
   );
