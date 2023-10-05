@@ -59,7 +59,7 @@ const ManageAccount = () => {
 
   return (
     <>
-      {data?.user.roleuser != "admin" && (
+      {data?.user.roleuser == "admin" && (
         <section data-aos="fade-down-right" className="card">
           <h1 className="title-section">Tambah Akun Baru</h1>
           <form onSubmit={addUser} className="space-y-2" action="">
