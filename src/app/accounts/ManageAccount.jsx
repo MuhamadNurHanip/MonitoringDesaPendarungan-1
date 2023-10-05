@@ -30,12 +30,15 @@ const ManageAccount = () => {
     const roleuser = e.target[4].value == "1" ? "admin" : "pejabatdesa";
     if (password != confirmPassword) return alert("Password tidak sama!");
 
-    const addData = await axios.post("http://localhost:3000/api/v1/users", {
-      fullname,
-      username,
-      password,
-      roleuser,
-    });
+    const addData = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/users`,
+      {
+        fullname,
+        username,
+        password,
+        roleuser,
+      }
+    );
 
     if (addData) {
       e.target[0].value = "";

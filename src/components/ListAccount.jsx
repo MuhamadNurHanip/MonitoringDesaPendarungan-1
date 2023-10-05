@@ -8,8 +8,8 @@ const ListAccount = () => {
   const [loading, setLoading] = useState(true);
 
   const getUser = async () => {
-    const data = (await axios.get("http://localhost:3000/api/v1/users")).data
-      .data;
+    const data = (await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`))
+      .data.data;
     setUser(data);
     setLoading(false);
   };
