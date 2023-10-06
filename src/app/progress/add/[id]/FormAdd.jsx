@@ -37,7 +37,7 @@ const FormAdd = ({ id }) => {
     // await writeFile("/public/documentation/kajsdjkasd.jpg", buffer);
     // console.log(buffer);
     const add = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/proker/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/proker/progress/${id}`,
       data,
       { headers: "multipart/form-data" }
       // { evaluasi, hambatan, tanggalRealisasi, jumlahRealisasi, status }
