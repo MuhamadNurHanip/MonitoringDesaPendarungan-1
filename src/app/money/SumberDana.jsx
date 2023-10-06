@@ -80,8 +80,8 @@ const SumberDana = () => {
                       }}
                     >
                       <Image
-                        width={20}
-                        height={20}
+                        width={15}
+                        height={15}
                         alt="edit-icon"
                         src={"/edit.svg"}
                       />
@@ -96,8 +96,8 @@ const SumberDana = () => {
                       className="cursor-pointer outline-none"
                     >
                       <Image
-                        width={18}
-                        height={18}
+                        width={14}
+                        height={14}
                         alt="trash-icon"
                         src={"/trash.svg"}
                       />
