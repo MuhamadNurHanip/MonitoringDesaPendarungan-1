@@ -33,8 +33,8 @@ const Action = ({ item, method }) => {
         >
           <Image
             className="cursor-pointer"
-            width={25}
-            height={25}
+            width={16}
+            height={16}
             alt="view-icon"
             src={"/view.svg"}
           />
@@ -44,8 +44,8 @@ const Action = ({ item, method }) => {
             <Link href={`/task/edit/${item.id}`}>
               <Image
                 className="cursor-pointer"
-                width={22}
-                height={22}
+                width={13}
+                height={13}
                 alt="edit-icon"
                 src={"/edit.svg"}
               />
@@ -53,8 +53,8 @@ const Action = ({ item, method }) => {
             <Image
               onClick={deleteData}
               className="cursor-pointer"
-              width={18}
-              height={18}
+              width={12}
+              height={12}
               alt="trash-icon"
               src={"/trash.svg"}
             />

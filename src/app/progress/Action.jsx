@@ -15,8 +15,8 @@ const Action = ({ item }) => {
           <Link href={`/progress/add/${item.id}`}>
             <Image
               className="cursor-pointer"
-              width={22}
-              height={22}
+              width={16}
+              height={16}
               alt="add-icon"
               src={"/plus.svg"}
             />
@@ -28,8 +28,8 @@ const Action = ({ item }) => {
         >
           <Image
             className="cursor-pointer"
-            width={25}
-            height={25}
+            width={18}
+            height={18}
             alt="view-icon"
             src={"/view.svg"}
           />
