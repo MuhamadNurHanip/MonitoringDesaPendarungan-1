@@ -1,5 +1,5 @@
 "use client";
-import { Process, Rencana } from "@/components/Status";
+import { Finish, Process, Rencana } from "@/components/Status";
 import { setDate } from "@/lib/setDate";
 import { setMoney } from "@/lib/setMoney";
 import { useSession } from "next-auth/react";
@@ -56,7 +56,9 @@ const Action = ({ item }) => {
             </div>
             <div>
               <h3 className="font-bold">Status Program Kerja</h3>
-              <Process />
+              {item.status == "Rencana" && <Rencana />}
+              {item.status == "Progress" && <Process />}
+              {item.status == "Selesai" && <Finish />}
             </div>
           </div>
           <div className="grid grid-cols-2">
