@@ -24,7 +24,7 @@ const Action = ({ item }) => {
         )}
         <button
           className="outline-none"
-          onClick={() => window.modal.showModal()}
+          onClick={() => document.getElementById("modal").showModal()}
         >
           <Image
             className="cursor-pointer"
