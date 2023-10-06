@@ -4,7 +4,10 @@ import FormLogin from "./FormLogin";
 const Login = () => {
   return (
     <div className="flex">
-      <div className="hidden md:grid place-items-center bg-[url('/gallery/gallerylogin.jpg')] w-full">
+      <div className="w-full md:w-[678px] h-screen text-black bg-second-color grid place-items-center">
+        <FormLogin />
+      </div>
+      <div className="hidden md:grid place-items-center bg-cover bg-[url('/gallery/gallerylogin.jpg')] w-full">
         <div className="flex flex-col items-center gap-5">
           <Image
             src={"/logopendarungan.svg"}
@@ -14,9 +17,6 @@ const Login = () => {
           />
           <p className="font-extrabold text-2xl text-white">DESA PENDARUNGAN</p>
         </div>
-      </div>
-      <div className="w-full h-screen text-black bg-second-color grid place-items-center">
-        <FormLogin />
       </div>
     </div>
   );
