@@ -9,6 +9,7 @@ const FormLogin = () => {
   const router = useRouter();
 
   const handleLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const username = e.target[0].value;
     const password = e.target[1].value;
@@ -19,9 +20,11 @@ const FormLogin = () => {
     });
 
     if (signInData.error) {
+      setLoading(false);
       alert("Something wrong!");
     } else {
       router.push("/");
+      setLoading(false);
     }
   };
   return (
@@ -35,8 +38,12 @@ const FormLogin = () => {
         <LabelForm name={"Password"} type={"password"}>
           Masukkan password anda...
         </LabelForm>
-        <button className="button w-full font-semibold" type="submit">
-          Masuk sekarang
+        <button
+          className={`button w-full font-semibold ${loading && "opacity-75"}`}
+          disabled={loading}
+          type="submit"
+        >
+          {loading ? "Loading..." : "Masuk sekarang"}
         </button>
       </form>
     </div>
