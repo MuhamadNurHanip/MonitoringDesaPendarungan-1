@@ -9,7 +9,7 @@ const SetProgress = ({ option, getProker }) => {
     try {
       setLoading(true);
       const add = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/proker/${idItem}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/proker/addprogress/${idItem}`,
         { status: "Progress" }
       );
       if (add) alert("Data berhasil ditambahkan ke progress!");
