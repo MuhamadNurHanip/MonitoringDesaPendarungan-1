@@ -5,13 +5,14 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const FormAdd = ({ id }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [rupiah, setRupiah] = useState();
   const [images, setImages] = useState([]);
+  const [tmpImg, setTmpImg] = useState([]);
+  const [allData, setAllData] = useState({});
   const [option, setOption] = useState([
     { id: 1, nama: "Rencana" },
     { id: 2, nama: "Progress" },
@@ -22,35 +23,28 @@ const FormAdd = ({ id }) => {
     e.preventDefault();
     setLoading(true);
     const data = new FormData();
-    data.append("evaluasi", e.target[0].value);
-    data.append("hambatan", e.target[1].value);
-    data.append("tanggalRealisasi", e.target[2].value);
-    const anggaran = e.target[3].value.split(".");
+    data.append("evaluasi", allData.evaluasi);
+    data.append("hambatan", allData.hambatan);
+    data.append("tanggalRealisasi", allData.tanggalRealisasi);
+    const anggaran = formatRupiah(`${allData.jumlahRealisasi}`).split(".");
     data.append("jumlahRealisasi", Number(anggaran.join("")));
     const status =
-      (e.target[4].value == 1 && "Rencana") ||
-      (e.target[4].value == 2 && "Progress") ||
-      (e.target[4].value == 3 && "Selesai") ||
+      (allData.status == "Rencana" && "Rencana") ||
+      (allData.status == "Progress" && "Progress") ||
+      (allData.status == "Selesai" && "Selesai") ||
       "Progress";
     data.append("status", status);
-    data.append("images", images);
-    // const bytes = await images.buffer();
-    // const buffer = Buffer.from(images[0]);
-    // await writeFile("/public/documentation/kajsdjkasd.jpg", buffer);
-    // console.log(buffer);
+    for (let i = 0; i < images.length; i++) {
+      data.append(`images_${i}`, images[i]);
+    }
     const add = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/proker/progress/progress/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/proker/progress/${id}`,
       data,
       { headers: "multipart/form-data" }
-      // { evaluasi, hambatan, tanggalRealisasi, jumlahRealisasi, status }
     );
 
     if (!add) return alert("Add progress failed! something wrong");
-    e.target[0].value = "";
-    e.target[1].value = "";
-    e.target[2].value = "";
-    e.target[3].value = "";
-    e.target[4].value = "";
+    setAllData({});
     setImages([]);
     alert("Add progress success!");
     setLoading(false);
@@ -60,11 +54,23 @@ const FormAdd = ({ id }) => {
 
   const handleFileSelected = (e) => {
     if (e.target.files) {
-      console.log("ini file gambar", e.target.files);
       const files = Array.from(e.target.files);
       setImages(files);
     }
   };
+
+  const getProkerById = async () => {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/proker/${id}`
+    );
+    console.log(response.data.data);
+    setAllData(response.data.data);
+    setTmpImg(response.data.data.dokumentasi.split(";"));
+  };
+
+  useEffect(() => {
+    getProkerById();
+  }, []);
 
   return (
     <form
@@ -75,19 +81,41 @@ const FormAdd = ({ id }) => {
       action=""
     >
       <div className="space-y-2">
-        <LabelForm longText={true} name={"Evaluasi"}>
+        <LabelForm
+          longText={true}
+          value={allData.evaluasi}
+          onChange={(e) => setAllData({ ...allData, evaluasi: e.target.value })}
+          name={"Evaluasi"}
+        >
           Evaluasi program kerja
         </LabelForm>
-        <LabelForm longText={true} name={"Hambatan"}>
+        <LabelForm
+          longText={true}
+          value={allData.hambatan}
+          onChange={(e) => setAllData({ ...allData, hambatan: e.target.value })}
+          name={"Hambatan"}
+        >
           Hambatan program kerja
         </LabelForm>
-        <LabelForm name={"Tanggal Realisasi Pelaksanaan"} type={"date"}>
+        <LabelForm
+          name={"Tanggal Realisasi Pelaksanaan"}
+          value={allData.tanggalRealisasi}
+          onChange={(e) =>
+            setAllData({ ...allData, tanggalRealisasi: e.target.value })
+          }
+          type={"date"}
+        >
           00/00/0000
         </LabelForm>
         <LabelForm
           name={"Realisasi Anggaran"}
-          onChange={(e) => setRupiah(formatRupiah(e.target.value))}
-          value={rupiah}
+          onChange={(e) =>
+            setAllData({
+              ...allData,
+              jumlahRealisasi: formatRupiah(e.target.value),
+            })
+          }
+          value={formatRupiah(`${allData.jumlahRealisasi}`)}
           type={"text"}
         >
           Realisasi anggaran
@@ -96,6 +124,20 @@ const FormAdd = ({ id }) => {
           name={"Status Program Kerja"}
           dataOption={option}
           option={true}
+          onChange={(e) =>
+            setAllData({
+              ...allData,
+              status:
+                (allData.status == 1 && "Rencana") ||
+                (allData.status == 2 && "Progress") ||
+                (allData.status == 3 && "Selesai"),
+            })
+          }
+          value={
+            (allData.status == "Rencana" && 1) ||
+            (allData.status == "Progress" && 2) ||
+            (allData.status == "Selesai" && 3)
+          }
         >
           Status Program Kerja
         </LabelForm>
@@ -106,19 +148,33 @@ const FormAdd = ({ id }) => {
             Dokumentasi Kegiatan Program Kerja
           </span>
           <div className="grid grid-cols-2 gap-3">
-            {images?.map((image, index) => {
-              const src = URL.createObjectURL(image);
-              return (
+            {images.length > 0 &&
+              images?.map((image, index) => {
+                const src = URL.createObjectURL(image);
+                return (
+                  <Image
+                    key={index}
+                    src={src}
+                    alt={image.name}
+                    width={30}
+                    height={80}
+                    className="w-full rounded-md my-3"
+                  />
+                );
+              })}
+            {images.length < 1 &&
+              tmpImg.map((item, index) => (
                 <Image
                   key={index}
-                  src={src}
-                  alt={image.name}
+                  src={`/documentation/${item}`}
+                  alt={item}
+                  quality={100}
                   width={30}
                   height={80}
+                  unoptimized
                   className="w-full rounded-md my-3"
                 />
-              );
-            })}
+              ))}
           </div>
           <div className="button font-semibold text-center">
             <span>+ Tambahkan Media</span>
@@ -126,8 +182,8 @@ const FormAdd = ({ id }) => {
               className="hidden"
               onChange={(e) => handleFileSelected(e)}
               type="file"
-              accept="image/png, image/jpeg"
               multiple
+              accept="image/png, image/jpeg"
               name="image"
               id="image"
             />
