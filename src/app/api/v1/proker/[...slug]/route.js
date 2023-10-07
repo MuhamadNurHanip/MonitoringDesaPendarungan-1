@@ -5,6 +5,7 @@ export const PATCH = async (req, { params }) => {
   try {
     const method = params.slug[0];
     const id = params.slug[1];
+    console.log(method, id);
     if (method == "addprogress") {
       const request = await req.json();
       const response = await prisma.proker.update({
