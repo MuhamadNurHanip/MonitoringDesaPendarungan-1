@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prismaclient";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req) => {
+export const GET = async (req, { params }) => {
   try {
-    const id = await req.url.split("/")[6];
+    const id = params.slug[0];
     const data = await prisma.proker.findUnique({ where: { id: Number(id) } });
     return NextResponse.json(
       { message: "GET Data by Id", data },
@@ -54,9 +54,9 @@ export const PATCH = async (req, { params }) => {
   }
 };
 
-export const DELETE = async (req) => {
+export const DELETE = async (req, { params }) => {
   try {
-    const id = await req.url.split("/")[6];
+    const id = params.slug[0];
     const response = await prisma.proker.delete({ where: { id: Number(id) } });
     return NextResponse.json(
       { message: "PATCH Data by Id", response },
