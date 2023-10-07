@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const SumberDana = () => {
+  const [loading, setLoading] = useState(false);
   const [fund, setFund] = useState([]);
   const [edit, setEdit] = useState();
   const [valueEdit, setValueEdit] = useState();
@@ -18,6 +19,7 @@ const SumberDana = () => {
   };
 
   const addFund = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const nama = e.target[0].value;
     const add = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/funds`, {
@@ -25,10 +27,12 @@ const SumberDana = () => {
     });
     if (!add) return alert("Add data failed!");
     getFunds();
+    setLoading(false);
     return alert("Add data success!");
   };
 
   const editFund = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const data = await axios.patch(
@@ -37,6 +41,7 @@ const SumberDana = () => {
       );
       if (!data) return alert("Data gagal diubah!");
       getFunds();
+      setLoading(false);
       return alert("Data berhasil diubah!");
     } catch (error) {
       console.log("error.message");
@@ -44,12 +49,14 @@ const SumberDana = () => {
   };
 
   const deleteFund = async (id) => {
+    setLoading(true);
     try {
       const data = await axios.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/funds/${id}`
       );
       if (!data) return alert("Data gagal dihapus!");
       getFunds();
+      setLoading(false);
       return alert("Data berhasil dihapus!");
     } catch (error) {
       console.log(error.message);
@@ -76,7 +83,7 @@ const SumberDana = () => {
                       onClick={() => {
                         setEdit(item.id);
                         setValueEdit(item.nama);
-                        return window.edit.showModal();
+                        return document.getElementById("edit").showModal();
                       }}
                     >
                       <Image
@@ -111,10 +118,13 @@ const SumberDana = () => {
       </div>
       {data?.user.roleuser == "admin" && (
         <button
-          className="outline-none font-semibold mt-3 button"
-          onClick={() => window.add.showModal()}
+          className={`outline-none font-semibold mt-3 button ${
+            loading && "opacity-70"
+          }`}
+          disabled={loading}
+          onClick={() => document.getElementById("add").showModal()}
         >
-          Tambah Sumber Dana
+          {loading ? "Loading..." : "Tambah Sumber Dana"}
         </button>
       )}
       <dialog id="add" className="modal overflow-y-scroll">
@@ -124,7 +134,7 @@ const SumberDana = () => {
               Nama sumber dana
             </LabelForm>
             <button
-              onClick={() => window.add.close()}
+              onClick={() => document.getElementById("add").close()}
               className="button mt-3 w-full font-semibold"
               type="submit"
             >
@@ -148,11 +158,14 @@ const SumberDana = () => {
               Nama sumber dana
             </LabelForm>
             <button
-              onClick={() => window.edit.close()}
-              className="button mt-3 w-full font-semibold"
+              onClick={() => document.getElementById("edit").close()}
+              className={`button mt-3 w-full font-semibold ${
+                loading && "opacity-70"
+              }`}
               type="submit"
+              disabled={loading}
             >
-              Edit Sumber Dana
+              {loading ? "Loading..." : "Edit Sumber Dana"}
             </button>
           </form>
         </div>
