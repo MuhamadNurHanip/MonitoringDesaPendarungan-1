@@ -6,11 +6,13 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const FormAdd = () => {
+  const [loading, setLoading] = useState(false);
   const [funds, setFunds] = useState([]);
   const [rupiah, setRupiah] = useState();
   const router = useRouter();
 
   const addTask = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const judul = e.target[0].value;
     const deskripsi = e.target[1].value;
@@ -53,6 +55,7 @@ const FormAdd = () => {
     e.target[8].value = "";
 
     alert("Data berhasil ditambahkan!");
+    setLoading(false);
     router.push("/task");
     return;
   };
@@ -126,11 +129,14 @@ const FormAdd = () => {
         </LabelForm>
       </div>
       <button
-        className="button w-full font-semibold col-span-2"
+        className={`button w-full font-semibold col-span-2 ${
+          loading && "opacity-70"
+        }`}
         required={true}
+        disabled={loading}
         type="submit"
       >
-        Tambah Program Kerja
+        {loading ? "Loading..." : "Tambah Program Kerja"}
       </button>
     </form>
   );

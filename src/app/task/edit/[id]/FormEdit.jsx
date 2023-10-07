@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 const FormEdit = ({ id }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [proker, setProker] = useState({});
   const [funds, setFunds] = useState([]);
 
@@ -33,6 +34,7 @@ const FormEdit = ({ id }) => {
 
   const postProker = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { fundsId, jumlahAnggaran, tahunAnggaran } = proker;
       delete proker.id;
@@ -53,6 +55,7 @@ const FormEdit = ({ id }) => {
       if (!addTask) return alert("Data gagal diubah!");
       setProker({});
       alert("Data berhasil diubah!");
+      setLoading(false);
       router.push("/task");
       return;
     } catch (error) {
@@ -193,8 +196,13 @@ const FormEdit = ({ id }) => {
           Tahun anggaran program kerja anda...
         </LabelForm>
       </div>
-      <button className="button w-full font-semibold col-span-2" type="submit">
-        Edit Program Kerja
+      <button
+        className={`button w-full font-semibold col-span-2 ${
+          loading && "opacity-70"
+        }`}
+        type="submit"
+      >
+        {loading ? "Loading..." : "Edit Program Kerja"}
       </button>
       <Link
         href={"/task"}

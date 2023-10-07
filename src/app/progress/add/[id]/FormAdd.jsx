@@ -9,6 +9,7 @@ import { useState } from "react";
 
 const FormAdd = ({ id }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [rupiah, setRupiah] = useState();
   const [images, setImages] = useState([]);
   const [option, setOption] = useState([
@@ -19,6 +20,7 @@ const FormAdd = ({ id }) => {
 
   const addProgress = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = new FormData();
     data.append("evaluasi", e.target[0].value);
     data.append("hambatan", e.target[1].value);
@@ -37,7 +39,7 @@ const FormAdd = ({ id }) => {
     // await writeFile("/public/documentation/kajsdjkasd.jpg", buffer);
     // console.log(buffer);
     const add = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/proker/progress/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/proker/progress/progress/${id}`,
       data,
       { headers: "multipart/form-data" }
       // { evaluasi, hambatan, tanggalRealisasi, jumlahRealisasi, status }
@@ -51,6 +53,7 @@ const FormAdd = ({ id }) => {
     e.target[4].value = "";
     setImages([]);
     alert("Add progress success!");
+    setLoading(false);
     router.push("/progress");
     return;
   };
@@ -131,8 +134,12 @@ const FormAdd = ({ id }) => {
           </div>
         </label>
       </div>
-      <button className="button font-semibold" type="submit">
-        Tambah Progress
+      <button
+        className={`button font-semibold ${loading && "opacity-70"}`}
+        disabled={loading}
+        type="submit"
+      >
+        {loading ? "Loading..." : "Tambah Progress"}
       </button>
       <Link
         href={"/progress"}
