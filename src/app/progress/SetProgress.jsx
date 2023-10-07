@@ -52,11 +52,7 @@ const SetProgress = ({ option, getProker }) => {
             type="button"
             disabled={loading}
           >
-            {loading ? (
-              <span className="loading loading-dots loading-xs"></span>
-            ) : (
-              "Tambah Progress Program Kerja"
-            )}
+            {loading ? `Loading...${idItem}` : "Tambah Progress Program Kerja"}
           </button>
         </div>
         <label className="modal-backdrop" htmlFor="my_modal_7">
