@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import { useState } from "react";
 
@@ -52,7 +53,7 @@ const SetProgress = ({ option, getProker }) => {
             type="button"
             disabled={loading}
           >
-            {loading ? `Loading...${idItem}` : "Tambah Progress Program Kerja"}
+            {loading ? "Loading..." : "Tambah Progress Program Kerja"}
           </button>
         </div>
         <label className="modal-backdrop" htmlFor="my_modal_7">
