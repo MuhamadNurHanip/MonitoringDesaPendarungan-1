@@ -1,13 +1,26 @@
 import { prisma } from "@/lib/prismaclient";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+
+export const GET = async (req) => {
+  try {
+    const id = await req.url.split("/")[6];
+    const data = await prisma.proker.findUnique({ where: { id: Number(id) } });
+    return NextResponse.json(
+      { message: "GET Data by Id", data },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 export const PATCH = async (req, { params }) => {
   try {
     const method = params.slug[0];
     const id = params.slug[1];
-    console.log(method, id);
+    const request = await req.json();
+
     if (method == "addprogress") {
-      const request = await req.json();
       const response = await prisma.proker.update({
         where: { id: Number(id) },
         data: { status: request.status },
@@ -31,12 +44,24 @@ export const PATCH = async (req, { params }) => {
         where: { id: Number(id) },
         data: { evaluasi, hambatan, tanggalRealisasi, jumlahRealisasi, status },
       });
-      console.log(method, id);
       return NextResponse.json(
-        { message: "PATCH Data by Id", response },
+        { message: "PATCH Data by Id" },
         { status: 200 }
       );
     }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const DELETE = async (req) => {
+  try {
+    const id = await req.url.split("/")[6];
+    const response = await prisma.proker.delete({ where: { id: Number(id) } });
+    return NextResponse.json(
+      { message: "PATCH Data by Id", response },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error.message);
   }
