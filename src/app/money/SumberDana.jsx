@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const SumberDana = () => {
   const [loading, setLoading] = useState(false);
@@ -25,10 +26,20 @@ const SumberDana = () => {
     const add = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/funds`, {
       data: { nama },
     });
-    if (!add) return alert("Add data failed!");
+    if (!add)
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Terjadi suatu kesalahan silahkan ulangi lagi!",
+      });
     getFunds();
     setLoading(false);
-    return alert("Add data success!");
+    e.target[0].value = "";
+    return Swal.fire({
+      icon: "success",
+      title: "Success!",
+      text: "Data Sumber Dana berhasil ditambahkan...",
+    });
   };
 
   const editFund = async (e) => {
@@ -39,10 +50,19 @@ const SumberDana = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/funds/${edit}`,
         { nama: valueEdit }
       );
-      if (!data) return alert("Data gagal diubah!");
+      if (!data)
+        return Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Terjadi suatu kesalahan silahkan ulangi lagi!",
+        });
       getFunds();
       setLoading(false);
-      return alert("Data berhasil diubah!");
+      return Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Data Sumber Dana berhasil diubah...",
+      });
     } catch (error) {
       console.log("error.message");
     }
@@ -54,10 +74,19 @@ const SumberDana = () => {
       const data = await axios.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/funds/${id}`
       );
-      if (!data) return alert("Data gagal dihapus!");
+      if (!data)
+        return Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Terjadi suatu kesalahan silahkan ulangi lagi!",
+        });
       getFunds();
       setLoading(false);
-      return alert("Data berhasil dihapus!");
+      return Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Data Sumber Dana berhasil dihapus...",
+      });
     } catch (error) {
       console.log(error.message);
     }
@@ -95,10 +124,16 @@ const SumberDana = () => {
                     </button>
                     <button
                       onClick={() => {
-                        const konfirmasi = confirm(
-                          "Apakah anda yakin akan menghapus item in?"
-                        );
-                        if (konfirmasi) return deleteFund(item.id);
+                        Swal.fire({
+                          title: "Apakah anda yakin akan menghapus data ini?",
+                          showDenyButton: true,
+                          confirmButtonText: "Yakin",
+                          denyButtonText: "Tidak yakin",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            return deleteFund(item.id);
+                          }
+                        });
                       }}
                       className="cursor-pointer outline-none"
                     >
