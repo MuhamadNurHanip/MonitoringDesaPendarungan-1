@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+
 import Link from "next/link";
 import Action from "./Action";
 import { useEffect, useState } from "react";
