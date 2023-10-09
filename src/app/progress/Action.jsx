@@ -93,17 +93,19 @@ const Action = ({ item }) => {
           </div>
           <h3 className="font-bold">Dokumentasi Program Kerja</h3>
           <div className="flex gap-3 flex-wrap mt-2">
-            {item.dokumentasi?.split(";").map((item, index) => (
-              <Image
-                key={index}
-                className="w-full md:w-48 h-24 rounded-lg object-cover"
-                width={0}
-                height={0}
-                alt={item}
-                unoptimized
-                src={`/documentation/${item}`}
-              />
-            ))}
+            {item.dokumentasi
+              ?.split(";")
+              .map((item, index) => (
+                <Image
+                  key={index}
+                  className="w-full md:w-48 h-24 rounded-lg object-cover"
+                  width={0}
+                  height={0}
+                  alt={item}
+                  unoptimized
+                  src={`/documentation/${item}`}
+                />
+              )) || "Belum ada"}
           </div>
         </div>
         <form method="dialog" className="modal-backdrop h-full">

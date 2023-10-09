@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const ManageAccount = () => {
   const [user, setUser] = useState([]);
@@ -28,7 +29,12 @@ const ManageAccount = () => {
     const password = e.target[2].value;
     const confirmPassword = e.target[3].value;
     const roleuser = e.target[4].value == "1" ? "admin" : "pejabatdesa";
-    if (password != confirmPassword) return alert("Password tidak sama!");
+    if (password != confirmPassword)
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password konfirmasi anda tidak sama!",
+      });
 
     const addData = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/users`,
@@ -47,9 +53,17 @@ const ManageAccount = () => {
       e.target[3].value = "";
       e.target[4].value = "";
       getUser();
-      return alert("Tambah user sukses!");
+      return Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Data Account berhasil ditambahkan...",
+      });
     } else {
-      return alert("Tambah user gagal!");
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Terjadi suatu kesalahan silahkan ulangi lagi!",
+      });
     }
   };
 

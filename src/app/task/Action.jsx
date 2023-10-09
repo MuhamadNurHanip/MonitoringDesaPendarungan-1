@@ -6,38 +6,27 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Swal from "sweetalert2";
 
 const Action = ({ item, method }) => {
   const { data } = useSession();
   const deleteData = async () => {
-    const konfirmasi = confirm(
-      "Apakah anda yakin ingin menghapus item berikut?"
-    );
-    if (konfirmasi) {
-      const deleteItem = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/proker/${item.id}`
-      );
-      if (!deleteItem) return alert("Delete data gagal! something wrong!");
-      method();
-      return (
-        <div className="alert alert-success">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="stroke-current shrink-0 h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span>Your purchase has been confirmed!</span>
-        </div>
-      );
-    }
+    Swal.fire({
+      icon: "question",
+      title: "Apakah anda yakin akan menghapus data ini?",
+      showDenyButton: true,
+      confirmButtonText: "Yakin",
+      denyButtonText: "Tidak Yakin",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const deleteItem = await axios.delete(
+          `${process.env.NEXT_PUBLIC_API_URL}/proker/${item.id}`
+        );
+        if (!deleteItem) return alert("Delete data gagal! something wrong!");
+        method();
+        return;
+      }
+    });
   };
 
   return (
@@ -135,17 +124,19 @@ const Action = ({ item, method }) => {
           </div>
           <h3 className="font-bold">Dokumentasi Program Kerja</h3>
           <div className="flex gap-3 flex-wrap mt-2">
-            {item.dokumentasi?.split(";").map((item, index) => (
-              <Image
-                key={index}
-                className="w-full md:w-48 h-24 rounded-lg object-cover"
-                width={0}
-                height={0}
-                alt={item}
-                unoptimized
-                src={`/documentation/${item}`}
-              />
-            ))}
+            {item.dokumentasi
+              ?.split(";")
+              .map((item, index) => (
+                <Image
+                  key={index}
+                  className="w-full md:w-48 h-24 rounded-lg object-cover"
+                  width={0}
+                  height={0}
+                  alt={item}
+                  unoptimized
+                  src={`/documentation/${item}`}
+                />
+              )) || "Belum ada"}
           </div>
         </div>
         <form method="dialog" className="modal-backdrop h-full">

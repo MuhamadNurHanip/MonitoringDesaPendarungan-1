@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const FormAdd = ({ id }) => {
   const router = useRouter();
@@ -34,8 +35,14 @@ const FormAdd = ({ id }) => {
       (allData.status == "Selesai" && "Selesai") ||
       "Progress";
     data.append("status", status);
-    for (let i = 0; i < images.length; i++) {
-      data.append(`images_${i}`, images[i]);
+    if (images.length > 0) {
+      for (let i = 0; i < images.length; i++) {
+        data.append(`images_${i}`, images[i]);
+      }
+    } else {
+      for (let i = 0; i < tmpImg.length; i++) {
+        data.append(`images_${i}`, tmpImg[i]);
+      }
     }
     const add = await axios.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/proker/progress/${id}`,
@@ -43,10 +50,19 @@ const FormAdd = ({ id }) => {
       { headers: "multipart/form-data" }
     );
 
-    if (!add) return alert("Add progress failed! something wrong");
+    if (!add)
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Tambah progress gagal...",
+      });
     setAllData({});
     setImages([]);
-    alert("Add progress success!");
+    Swal.fire({
+      icon: "success",
+      title: "Success!",
+      text: "Tambah progress berhasil...",
+    });
     setLoading(false);
     router.push("/progress");
     return;
@@ -65,7 +81,7 @@ const FormAdd = ({ id }) => {
     );
     console.log(response.data.data);
     setAllData(response.data.data);
-    setTmpImg(response.data.data.dokumentasi.split(";"));
+    setTmpImg(response.data.data.dokumentasi?.split(";") || []);
   };
 
   useEffect(() => {

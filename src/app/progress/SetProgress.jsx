@@ -48,10 +48,7 @@ const SetProgress = ({ option, getProker }) => {
             })}
           </select>
           <button
-            onClick={() => {
-              addProgress();
-              return document.getElementById("my_modal_7").close();
-            }}
+            onClick={() => addProgress()}
             className={`button w-full mt-5 ${loading && "opacity-60"}`}
             type="button"
             disabled={loading}

@@ -3,7 +3,6 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import Title from "@/components/Title";
 import Layout from "@/components/Layout";
-import { Session } from "next-auth";
 import Provider from "@/components/Provider";
 
 export const metadata = {

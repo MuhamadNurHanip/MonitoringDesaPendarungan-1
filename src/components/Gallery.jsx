@@ -19,7 +19,7 @@ const Gallery = () => {
           width={300}
           height={0}
           alt="Gallery-Image"
-          src={"/gallery/gallery1.jpg"}
+          src={"/gallery/gallery2.jpg"}
         />
       </div>
       <Image
@@ -27,7 +27,7 @@ const Gallery = () => {
         width={300}
         height={0}
         alt="Gallery-Image"
-        src={"/gallery/gallery1.jpg"}
+        src={"/gallery/gallery3.jpg"}
       />
     </section>
   );

@@ -4,6 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const FormEdit = ({ id }) => {
   const router = useRouter();
@@ -48,13 +49,24 @@ const FormEdit = ({ id }) => {
       };
 
       const addTask = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/proker/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/proker/editdata/${id}`,
         data
       );
 
-      if (!addTask) return alert("Data gagal diubah!");
+      if (!addTask) {
+        return Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ada sesuatu yang gagal...",
+        });
+      }
+
       setProker({});
-      alert("Data berhasil diubah!");
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Data berhasil diubah...",
+      });
       setLoading(false);
       router.push("/task");
       return;

@@ -20,13 +20,22 @@ export const PATCH = async (req, { params }) => {
   try {
     const method = params.slug[0];
     const id = params.slug[1];
-    console.log(method, id);
 
     if (method == "addprogress") {
       const request = await req.json();
       const response = await prisma.proker.update({
         where: { id: Number(id) },
         data: { status: request.status },
+      });
+      return NextResponse.json(
+        { message: "PATCH Data by Id", response },
+        { status: 200 }
+      );
+    } else if (method == "editdata") {
+      const data = await req.json();
+      const response = await prisma.proker.update({
+        where: { id: Number(id) },
+        data,
       });
       return NextResponse.json(
         { message: "PATCH Data by Id", response },
@@ -43,18 +52,29 @@ export const PATCH = async (req, { params }) => {
       let dokumentasi = "";
       for (let i = 0; i < dataLength - 5; i++) {
         const images = data.get(`images_${i}`);
-        const bytes = await images.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        const ext = images.name.split(".");
-        const fileName =
-          ext[0].toLowerCase() + Math.floor(Math.random() * 10) + "." + ext[1];
-        if (i == dataLength - 6) {
-          dokumentasi += `${fileName}`;
+        if (typeof images == "string") {
+          if (i != 0) {
+            dokumentasi += `;${images}`;
+          } else {
+            dokumentasi += images;
+          }
         } else {
-          dokumentasi += `${fileName};`;
+          const bytes = await images.arrayBuffer();
+          const buffer = Buffer.from(bytes);
+          const ext = images.name.split(".");
+          const fileName =
+            ext[0].toLowerCase() +
+            Math.floor(Math.random() * 10) +
+            "." +
+            ext[1];
+          if (i == dataLength - 6) {
+            dokumentasi += `${fileName}`;
+          } else {
+            dokumentasi += `${fileName};`;
+          }
+          const path = join("./public/documentation", fileName);
+          await writeFile(path, buffer);
         }
-        const path = join("./public/documentation", fileName);
-        await writeFile(path, buffer);
       }
       const response = await prisma.proker.update({
         where: { id: Number(id) },
@@ -64,7 +84,7 @@ export const PATCH = async (req, { params }) => {
           tanggalRealisasi,
           jumlahRealisasi,
           status,
-          dokumentasi,
+          dokumentasi: dokumentasi || null,
         },
       });
       return NextResponse.json(
