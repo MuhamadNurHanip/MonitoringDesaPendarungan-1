@@ -18,9 +18,25 @@ const Action = ({ item, method }) => {
         `${process.env.NEXT_PUBLIC_API_URL}/proker/${item.id}`
       );
       if (!deleteItem) return alert("Delete data gagal! something wrong!");
-      alert("Delete data berhasil");
       method();
-      return;
+      return (
+        <div className="alert alert-success">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>Your purchase has been confirmed!</span>
+        </div>
+      );
     }
   };
 
@@ -29,7 +45,9 @@ const Action = ({ item, method }) => {
       <div className="flex flex-col md:flex-row gap-2 items-center">
         <button
           className="outline-none"
-          onClick={() => document.getElementById("modal").showModal()}
+          onClick={() =>
+            document.getElementById(`modal_${item.id}`).showModal()
+          }
         >
           <Image
             className="cursor-pointer"
@@ -61,7 +79,7 @@ const Action = ({ item, method }) => {
           </>
         )}
       </div>
-      <dialog id="modal" className="modal overflow-y-scroll">
+      <dialog id={`modal_${item.id}`} className="modal overflow-y-scroll">
         <div className="modal-box max-w-2xl mx-3 w-11/12 no-scrollbar bg-white">
           <div className="flex gap-3 my-3">
             <span className="block bg-black w-[3px] rounded-full"></span>

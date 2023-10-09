@@ -24,7 +24,9 @@ const Action = ({ item }) => {
         )}
         <button
           className="outline-none"
-          onClick={() => document.getElementById("modal").showModal()}
+          onClick={() =>
+            document.getElementById(`modal_${item.id}`).showModal()
+          }
         >
           <Image
             className="cursor-pointer"
@@ -35,7 +37,7 @@ const Action = ({ item }) => {
           />
         </button>
       </div>
-      <dialog id="modal" className="modal overflow-y-scroll">
+      <dialog id={`modal_${item.id}`} className="modal overflow-y-scroll">
         <div className="modal-box max-w-2xl mx-3 w-11/12 no-scrollbar bg-white">
           <div className="flex gap-3 my-3">
             <span className="block bg-black w-[3px] rounded-full"></span>
