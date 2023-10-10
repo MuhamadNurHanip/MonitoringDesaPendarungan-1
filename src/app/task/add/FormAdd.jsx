@@ -9,6 +9,7 @@ const FormAdd = () => {
   const [loading, setLoading] = useState(false);
   const [funds, setFunds] = useState([]);
   const [rupiah, setRupiah] = useState();
+  const [max, setMax] = useState(false);
   const router = useRouter();
 
   const addTask = async (e) => {

@@ -8,6 +8,7 @@ const LabelForm = ({
   dataOption = [],
   required = false,
   option,
+  disabled = false,
 }) => {
   if (longText)
     return (
@@ -54,6 +55,7 @@ const LabelForm = ({
         placeholder={children}
         required={required}
         className="p-2 placeholder:text-xs outline-none border border-primary-color text-primary-color bg-second-color rounded-md "
+        disabled={disabled}
         type={type}
         onChange={onChange}
         name={name}
